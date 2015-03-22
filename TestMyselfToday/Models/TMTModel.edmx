@@ -40,6 +40,7 @@
           <Property Name="QuestionId" Type="bigint" Nullable="false" />
           <Property Name="OptionText" Type="nvarchar" MaxLength="1000" />
           <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
           <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="RelatedTest">
@@ -70,6 +71,8 @@
           <Property Name="LanguageId" Type="bigint" />
           <Property Name="DateAndTime" Type="datetime" />
           <Property Name="SortOrder" Type="int" />
+          <Property Name="UsageCount" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TestResult">
           <Key>
@@ -83,15 +86,6 @@
           <Property Name="TestId" Type="bigint" Nullable="false" />
           <Property Name="RangeStart" Type="int" Nullable="false" />
           <Property Name="RangeEnd" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TestStat">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TestId" Type="bigint" Nullable="false" />
-          <Property Name="TestUsage" Type="int" />
-          <Property Name="TestRating" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <Association Name="FK_Question_Test">
           <End Role="Test" Type="Self.Test" Multiplicity="1" />
@@ -177,18 +171,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestStats_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
-          <End Role="TestStat" Type="Self.TestStat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Test">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestStat">
-              <PropertyRef Name="TestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="TMTModelStoreContainer">
           <EntitySet Name="CommonDictionary" EntityType="Self.CommonDictionary" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
@@ -198,7 +180,6 @@
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResult" EntityType="Self.TestResult" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TestStat" EntityType="Self.TestStat" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Question_Test" Association="Self.FK_Question_Test">
             <End Role="Test" EntitySet="Test" />
             <End Role="Question" EntitySet="Question" />
@@ -227,10 +208,6 @@
             <End Role="Test" EntitySet="Test" />
             <End Role="TestResult" EntitySet="TestResult" />
           </AssociationSet>
-          <AssociationSet Name="FK_TestStats_Test" Association="Self.FK_TestStats_Test">
-            <End Role="Test" EntitySet="Test" />
-            <End Role="TestStat" EntitySet="TestStat" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -252,7 +229,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Tests" Relationship="Self.FK_Test_Language" FromRole="Language" ToRole="Test" />
+          <NavigationProperty Name="Tests" Relationship="TMTModel.FK_Test_Language" FromRole="Language" ToRole="Test" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -263,19 +240,8 @@
           <Property Name="Statement" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Test" Relationship="Self.FK_Question_Test" FromRole="Question" ToRole="Test" />
-          <NavigationProperty Name="QuestionOptions" Relationship="Self.FK_QuestionOption_Question" FromRole="Question" ToRole="QuestionOption" />
-        </EntityType>
-        <EntityType Name="QuestionOption">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionId" Type="Int64" Nullable="false" />
-          <Property Name="OptionText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Score" Type="Int32" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Question" Relationship="Self.FK_QuestionOption_Question" FromRole="QuestionOption" ToRole="Question" />
+          <NavigationProperty Name="Test" Relationship="TMTModel.FK_Question_Test" FromRole="Question" ToRole="Test" />
+          <NavigationProperty Name="QuestionOptions" Relationship="TMTModel.FK_QuestionOption_Question" FromRole="Question" ToRole="QuestionOption" />
         </EntityType>
         <EntityType Name="RelatedTest">
           <Key>
@@ -285,28 +251,9 @@
           <Property Name="TestId" Type="Int64" Nullable="false" />
           <Property Name="RelatedTestId" Type="Int64" Nullable="false" />
           <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Test" Relationship="Self.FK_RelatedTest_Test" FromRole="RelatedTest" ToRole="Test" />
-          <NavigationProperty Name="Test1" Relationship="Self.FK_RelatedTest_TestR" FromRole="RelatedTest" ToRole="Test" />
-        </EntityType>
-        <EntityType Name="Test">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="SectionId" Type="Int64" />
-          <Property Name="LanguageId" Type="Int64" />
-          <Property Name="DateAndTime" Type="DateTime" Precision="3" />
-          <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Language" Relationship="Self.FK_Test_Language" FromRole="Test" ToRole="Language" />
-          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_Test" FromRole="Test" ToRole="Question" />
-          <NavigationProperty Name="RelatedTests" Relationship="Self.FK_RelatedTest_Test" FromRole="Test" ToRole="RelatedTest" />
-          <NavigationProperty Name="RelatedTests1" Relationship="Self.FK_RelatedTest_TestR" FromRole="Test" ToRole="RelatedTest" />
-          <NavigationProperty Name="TestResults" Relationship="Self.FK_TestResult_Test" FromRole="Test" ToRole="TestResult" />
-          <NavigationProperty Name="TestStats" Relationship="Self.FK_TestStats_Test" FromRole="Test" ToRole="TestStat" />
-          <NavigationProperty Name="Section" Relationship="TMTModel.FK_Test_Section" FromRole="Test" ToRole="Section" />
-        </EntityType>
+          <NavigationProperty Name="Test" Relationship="TMTModel.FK_RelatedTest_Test" FromRole="RelatedTest" ToRole="Test" />
+          <NavigationProperty Name="Test1" Relationship="TMTModel.FK_RelatedTest_TestR" FromRole="RelatedTest" ToRole="Test" />
+          </EntityType>
         <EntityType Name="TestResult">
           <Key>
             <PropertyRef Name="Id" />
@@ -319,21 +266,90 @@
           <Property Name="TestId" Type="Int64" Nullable="false" />
           <Property Name="RangeStart" Type="Int32" Nullable="false" />
           <Property Name="RangeEnd" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Test" Relationship="Self.FK_TestResult_Test" FromRole="TestResult" ToRole="Test" />
+          <NavigationProperty Name="Test" Relationship="TMTModel.FK_TestResult_Test" FromRole="TestResult" ToRole="Test" />
         </EntityType>
-        <EntityType Name="TestStat">
+        <EntityContainer Name="TMTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CommonDictionaries" EntityType="Self.CommonDictionary" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="RelatedTests" EntityType="Self.RelatedTest" />
+          <EntitySet Name="TestResults" EntityType="Self.TestResult" />
+          <EntitySet Name="Sections" EntityType="TMTModel.Section" />
+          <EntitySet Name="QuestionOptions" EntityType="TMTModel.QuestionOption" />
+          <EntitySet Name="Tests" EntityType="TMTModel.Test" />
+          <AssociationSet Name="FK_Test_Language" Association="TMTModel.FK_Test_Language">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="Test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Test" Association="TMTModel.FK_Question_Test">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOption_Question" Association="TMTModel.FK_QuestionOption_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelatedTest_Test" Association="TMTModel.FK_RelatedTest_Test">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="RelatedTest" EntitySet="RelatedTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelatedTest_TestR" Association="TMTModel.FK_RelatedTest_TestR">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="RelatedTest" EntitySet="RelatedTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Test_Section" Association="TMTModel.FK_Test_Section">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Test" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestResult_Test" Association="TMTModel.FK_TestResult_Test">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="TestResult" EntitySet="TestResults" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Section">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TestId" Type="Int64" Nullable="false" />
-          <Property Name="TestUsage" Type="Int32" />
-          <Property Name="TestRating" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Test" Relationship="Self.FK_TestStats_Test" FromRole="TestStat" ToRole="Test" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Tests" Relationship="TMTModel.FK_Test_Section" FromRole="Section" ToRole="Test" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int64" Nullable="false" />
+          <Property Name="OptionText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="TMTModel.FK_QuestionOption_Question" FromRole="QuestionOption" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SectionId" Type="Int64" />
+          <Property Name="LanguageId" Type="Int64" />
+          <Property Name="DateAndTime" Type="DateTime" Precision="3" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="UsageCount" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Language" Relationship="TMTModel.FK_Test_Language" FromRole="Test" ToRole="Language" />
+          <NavigationProperty Name="Questions" Relationship="TMTModel.FK_Question_Test" FromRole="Test" ToRole="Question" />
+          <NavigationProperty Name="RelatedTests" Relationship="TMTModel.FK_RelatedTest_Test" FromRole="Test" ToRole="RelatedTest" />
+          <NavigationProperty Name="RelatedTests1" Relationship="TMTModel.FK_RelatedTest_TestR" FromRole="Test" ToRole="RelatedTest" />
+          <NavigationProperty Name="Section" Relationship="TMTModel.FK_Test_Section" FromRole="Test" ToRole="Section" />
+          <NavigationProperty Name="TestResults" Relationship="TMTModel.FK_TestResult_Test" FromRole="Test" ToRole="TestResult" />
         </EntityType>
         <Association Name="FK_Test_Language">
-          <End Role="Language" Type="Self.Language" Multiplicity="0..1" />
-          <End Role="Test" Type="Self.Test" Multiplicity="*" />
+          <End Type="TMTModel.Language" Role="Language" Multiplicity="0..1" />
+          <End Type="TMTModel.Test" Role="Test" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Language">
               <PropertyRef Name="Id" />
@@ -344,8 +360,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Question_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
-          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <End Type="TMTModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="TMTModel.Question" Role="Question" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Test">
               <PropertyRef Name="Id" />
@@ -356,8 +372,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_QuestionOption_Question">
-          <End Role="Question" Type="Self.Question" Multiplicity="1" />
-          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <End Type="TMTModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="TMTModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Question">
               <PropertyRef Name="Id" />
@@ -368,8 +384,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelatedTest_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
-          <End Role="RelatedTest" Type="Self.RelatedTest" Multiplicity="*" />
+          <End Type="TMTModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="TMTModel.RelatedTest" Role="RelatedTest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Test">
               <PropertyRef Name="Id" />
@@ -380,8 +396,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RelatedTest_TestR">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
-          <End Role="RelatedTest" Type="Self.RelatedTest" Multiplicity="*" />
+          <End Type="TMTModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="TMTModel.RelatedTest" Role="RelatedTest" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Test">
               <PropertyRef Name="Id" />
@@ -391,82 +407,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TestResult_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
-          <End Role="TestResult" Type="Self.TestResult" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Test">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestResult">
-              <PropertyRef Name="TestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TestStats_Test">
-          <End Role="Test" Type="Self.Test" Multiplicity="1" />
-          <End Role="TestStat" Type="Self.TestStat" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Test">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TestStat">
-              <PropertyRef Name="TestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="TMTEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CommonDictionaries" EntityType="Self.CommonDictionary" />
-          <EntitySet Name="Languages" EntityType="Self.Language" />
-          <EntitySet Name="Questions" EntityType="Self.Question" />
-          <EntitySet Name="QuestionOptions" EntityType="Self.QuestionOption" />
-          <EntitySet Name="RelatedTests" EntityType="Self.RelatedTest" />
-          <EntitySet Name="Tests" EntityType="Self.Test" />
-          <EntitySet Name="TestResults" EntityType="Self.TestResult" />
-          <EntitySet Name="TestStats" EntityType="Self.TestStat" />
-          <AssociationSet Name="FK_Test_Language" Association="Self.FK_Test_Language">
-            <End Role="Language" EntitySet="Languages" />
-            <End Role="Test" EntitySet="Tests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Question_Test" Association="Self.FK_Question_Test">
-            <End Role="Test" EntitySet="Tests" />
-            <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionOption_Question" Association="Self.FK_QuestionOption_Question">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="QuestionOption" EntitySet="QuestionOptions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelatedTest_Test" Association="Self.FK_RelatedTest_Test">
-            <End Role="Test" EntitySet="Tests" />
-            <End Role="RelatedTest" EntitySet="RelatedTests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RelatedTest_TestR" Association="Self.FK_RelatedTest_TestR">
-            <End Role="Test" EntitySet="Tests" />
-            <End Role="RelatedTest" EntitySet="RelatedTests" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestResult_Test" Association="Self.FK_TestResult_Test">
-            <End Role="Test" EntitySet="Tests" />
-            <End Role="TestResult" EntitySet="TestResults" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TestStats_Test" Association="Self.FK_TestStats_Test">
-            <End Role="Test" EntitySet="Tests" />
-            <End Role="TestStat" EntitySet="TestStats" />
-          </AssociationSet>
-          <EntitySet Name="Sections" EntityType="TMTModel.Section" />
-          <AssociationSet Name="FK_Test_Section" Association="TMTModel.FK_Test_Section">
-            <End Role="Section" EntitySet="Sections" />
-            <End Role="Test" EntitySet="Tests" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Section">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Tests" Relationship="TMTModel.FK_Test_Section" FromRole="Section" ToRole="Test" />
-        </EntityType>
         <Association Name="FK_Test_Section">
           <End Type="TMTModel.Section" Role="Section" Multiplicity="0..1" />
           <End Type="TMTModel.Test" Role="Test" Multiplicity="*" />
@@ -479,7 +419,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_TestResult_Test">
+          <End Type="TMTModel.Test" Role="Test" Multiplicity="1" />
+          <End Type="TMTModel.TestResult" Role="TestResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TestResult">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -515,36 +467,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="QuestionOptions">
-            <EntityTypeMapping TypeName="TMTModel.QuestionOption">
-              <MappingFragment StoreEntitySet="QuestionOption">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="OptionText" ColumnName="OptionText" />
-                <ScalarProperty Name="Score" ColumnName="Score" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RelatedTests">
             <EntityTypeMapping TypeName="TMTModel.RelatedTest">
               <MappingFragment StoreEntitySet="RelatedTest">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TestId" ColumnName="TestId" />
                 <ScalarProperty Name="RelatedTestId" ColumnName="RelatedTestId" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tests">
-            <EntityTypeMapping TypeName="TMTModel.Test">
-              <MappingFragment StoreEntitySet="Test">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -563,20 +491,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TestStats">
-            <EntityTypeMapping TypeName="TMTModel.TestStat">
-              <MappingFragment StoreEntitySet="TestStat">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TestId" ColumnName="TestId" />
-                <ScalarProperty Name="TestUsage" ColumnName="TestUsage" />
-                <ScalarProperty Name="TestRating" ColumnName="TestRating" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sections">
             <EntityTypeMapping TypeName="TMTModel.Section">
               <MappingFragment StoreEntitySet="Section">
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="TMTModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOption">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="OptionText" ColumnName="OptionText" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="TMTModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UsageCount" ColumnName="UsageCount" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

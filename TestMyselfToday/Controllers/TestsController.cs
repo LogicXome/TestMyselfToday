@@ -27,6 +27,7 @@ namespace TestMyselfToday.Controllers
             ViewBag.SectionId = new SelectList(db.Sections, "Id", "Title");
 
             Test test = new Test();
+            test.IsActive = true;
 
             return View(test);
         }
@@ -38,7 +39,7 @@ namespace TestMyselfToday.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Test test)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 test.DateAndTime = DateTime.Now;
 

@@ -28,11 +28,10 @@ namespace TestMyselfToday.Models
         public virtual DbSet<CommonDictionary> CommonDictionaries { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
         public virtual DbSet<RelatedTest> RelatedTests { get; set; }
-        public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<TestResult> TestResults { get; set; }
-        public virtual DbSet<TestStat> TestStats { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
+        public virtual DbSet<Test> Tests { get; set; }
     }
 }

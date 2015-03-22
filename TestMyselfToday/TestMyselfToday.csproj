@@ -150,9 +150,6 @@
     <Compile Include="Models\TestResult.cs">
       <DependentUpon>TMTModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestStat.cs">
-      <DependentUpon>TMTModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TMTModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -20,7 +20,6 @@ namespace TestMyselfToday.Models
             this.RelatedTests = new HashSet<RelatedTest>();
             this.RelatedTests1 = new HashSet<RelatedTest>();
             this.TestResults = new HashSet<TestResult>();
-            this.TestStats = new HashSet<TestStat>();
         }
     
         public long Id { get; set; }
@@ -30,13 +29,14 @@ namespace TestMyselfToday.Models
         public Nullable<long> LanguageId { get; set; }
         public Nullable<System.DateTime> DateAndTime { get; set; }
         public Nullable<int> SortOrder { get; set; }
+        public Nullable<int> UsageCount { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual Language Language { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<RelatedTest> RelatedTests { get; set; }
         public virtual ICollection<RelatedTest> RelatedTests1 { get; set; }
-        public virtual ICollection<TestResult> TestResults { get; set; }
-        public virtual ICollection<TestStat> TestStats { get; set; }
         public virtual Section Section { get; set; }
+        public virtual ICollection<TestResult> TestResults { get; set; }
     }
 }

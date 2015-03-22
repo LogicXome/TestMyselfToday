@@ -183,7 +183,10 @@
                             <div class="tab-pane" id="@stepTemp">
 
                                 <h2 class="question-title">@question.Statement</h2>
-
+                                @if (!String.IsNullOrEmpty(question.ImagePath))
+                                {                                    
+                                    <img src="@question.ImagePath" class="img-responsive" />
+                                }
 
                                 @{
                             var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);

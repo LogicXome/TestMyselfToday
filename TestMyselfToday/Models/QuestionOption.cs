@@ -18,6 +18,7 @@ namespace TestMyselfToday.Models
         public long QuestionId { get; set; }
         public string OptionText { get; set; }
         public int Score { get; set; }
+        public string ImageUrl { get; set; }
         public Nullable<int> SortOrder { get; set; }
     
         public virtual Question Question { get; set; }

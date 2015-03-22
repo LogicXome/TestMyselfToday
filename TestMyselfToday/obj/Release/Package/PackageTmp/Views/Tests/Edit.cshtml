@@ -368,6 +368,13 @@
                 var questionNo = $(parentParentPanel).find('span.label-question-no').text();
                 var questionId = $(parentParentPanel).find('span.label-question-id').text();
 
+                var questionIdField = '';
+
+                if (questionId == "")
+                {
+                    questionIdField = '<input class="form-control question-id" type="hidden" value="' + questionId + '" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].QuestionId">';
+                }
+
                 var questionOptionCount = $(parentParentPanel).find('div.panel-questionoption').length;
 
                 var newOption = '<div class="panel panel-collapse panel-success panel-questionoption">\
@@ -378,7 +385,7 @@
                                                             Option\
                                                         </label>\
                                                         <div class="col-md-10">\
-                                                            <input class="form-control question-id" type="hidden" value="' + questionId + '" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].QuestionId">\
+                                                             '+ questionIdField +'\
                                                             <input class="form-control questionoption-text" type="text" value="" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].OptionText">\
                                                         </div>\
                                                     </div>\

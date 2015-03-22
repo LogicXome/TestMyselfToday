@@ -11,10 +11,30 @@ namespace TestMyselfToday.Controllers
     {
         TMTEntities db = new TMTEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            var tests = db.Tests.OrderBy(o => o.SortOrder);
-            return View(tests.ToList());
+            List<Test> lstTest = null;
+
+            switch (search)
+            {
+                case "new":
+                    {
+                        lstTest = db.Tests.Where(x => x.IsActive).OrderByDescending(o => o.DateAndTime).ToList();
+                        break;
+                    }
+                case "best":
+                    {
+                        lstTest = db.Tests.Where(x => x.IsActive).OrderByDescending(o => o.UsageCount).ToList();
+                        break;
+                    }
+                default:
+                    {
+                        lstTest = db.Tests.Where(x => x.IsActive).OrderBy(o => o.SortOrder).ToList();
+                        break;
+                    }
+            }
+
+            return View(lstTest);
         }
 
         public ActionResult ForAdmin()
@@ -67,12 +87,28 @@ namespace TestMyselfToday.Controllers
                 {
                     long testId = Convert.ToInt64(form["TestId"]);
 
-                    testResult = db.TestResults.FirstOrDefault(x => x.TestId == testId && x.RangeStart <= totalScore && x.RangeEnd >= totalScore);
+                     var test = db.Tests.Find(testId);
+
+                    if (test != null)
+                    {
+                        if(test.UsageCount != null)
+                        {
+                            test.UsageCount = test.UsageCount + 1;
+                        }
+                        else
+                        {
+                            test.UsageCount = 1;
+                        }
+
+                        db.SaveChanges();
+
+                        testResult = test.TestResults.FirstOrDefault(x => x.RangeStart <= totalScore && x.RangeEnd >= totalScore);
+                    }
                 }                
 
                 if (testResult != null)
                 {
-                    testResultId = testResult.Id;
+                    testResultId = testResult.Id;                    
                 }
                 else
                 {
