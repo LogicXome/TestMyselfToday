@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Admin-Panel";
+}
+
+<style type="text/css">
+    .admin-panel {
+        margin-top: 10px;
+    }
+
+    .label-link {
+        padding: 8px;
+        font-size: small;
+    }
+
+</style>
+
+<div class="admin-panel">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h5>Admin-Panel</h5>
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-offset-2 col-md-8">
+                <div class="col-md-4">
+                    <a href="@Url.Action("Index", "Tests")" class="label-link label label-primary col-md-12">Tests</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="@Url.Action("Index", "AdminTestResults")" class="label-link label label-primary col-md-12">Test-Results</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="@Url.Action("Index", "AdminLanguages")" class="label-link label label-primary col-md-12">Languages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

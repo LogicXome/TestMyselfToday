@@ -1,0 +1,73 @@
+﻿@model TestMyselfToday.Models.TestResult
+
+@{
+    ViewBag.Title = "TestResult";
+}
+
+<style type="text/css">
+    .testresult-panel {
+        margin-top: 10px;
+    }
+
+    .label-sharing-facebook{
+        padding: 8px;
+        font-size: small;
+    }
+    .label-sharing-googleplus{
+        padding: 8px;
+        font-size: small;
+    }
+    .label-sharing-twitter{
+        padding: 8px;
+        font-size: small;
+    }
+</style>
+
+<div class="col-md-8">
+    <div class="panel testresult-panel">
+        <div class="panel-success">
+            <div class="panel-body">
+                <div class="col-lg-offset-2 col-md-8">
+                    <div class="col-md-4">
+                        <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-md-6 testresult-panel-image">
+                    <img src="@Model.ImagePath" alt="Image" class="img-responsive" />
+                </div>
+                <div class="col-md-6 testresult-panel-data">
+                    <h4>@Model.TitleText</h4>
+
+                    <h2>@Model.ResultText</h2>
+
+                    <p>
+                        @Model.ResultDetail
+                    </p>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-lg-offset-2 col-md-8">
+                    <div class="col-md-4">
+                        <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

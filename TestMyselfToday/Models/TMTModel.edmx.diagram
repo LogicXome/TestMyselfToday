@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2ec9b7f1a5ee4c73bc05000b55bb16d8" Name="Diagram1">
+        <EntityTypeShape EntityType="TMTModel.CommonDictionary" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.Language" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.Question" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.QuestionOption" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.RelatedTest" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.Test" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.TestResult" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMTModel.TestStat" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="TMTModel.FK_Test_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="TMTModel.FK_Question_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="TMTModel.FK_QuestionOption_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="TMTModel.FK_RelatedTest_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="TMTModel.FK_RelatedTest_TestR" ManuallyRouted="false" />
+        <AssociationConnector Association="TMTModel.FK_TestResult_Test" ManuallyRouted="false" />
+        <AssociationConnector Association="TMTModel.FK_TestStats_Test" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TMTModel.Section" Width="1.5" PointX="0.75" PointY="3.25" />
+        <AssociationConnector Association="TMTModel.FK_Test_Section" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

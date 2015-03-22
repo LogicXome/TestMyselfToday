@@ -1,0 +1,443 @@
+﻿@model TestMyselfToday.Models.Test
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style type="text/css">    
+    body{
+        background-color: white;
+    }
+    .test-panel{
+        margin-top: 10px;
+    }
+
+    .label-panel-heading {
+        font-size: medium;
+        margin: 3px;
+    }
+
+    .label-question-add {
+        padding: 5px;
+        margin: 3px;
+        font-size: medium;
+        font-style: italic;
+    }
+
+    .label-question-remove {
+        padding: 5px;
+        margin: 3px;
+        font-size: medium;
+        font-style: italic;
+    }
+
+    .label-questionoption-add {
+        padding: 4px;
+        margin: 3px;
+        font-size: small;
+        font-style: italic;
+    }
+
+    .label-questionoption-remove {
+        padding: 4px;
+        margin: 3px;
+        font-size: small;
+        font-style: italic;
+    }
+
+    .label-question-no {
+        display: none;
+    }
+
+</style>
+
+<div class="panel test-panel">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="panel panel-collapse panel-success panel-test">
+                <div class="panel-heading">
+                    Test Details
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Title
+                        </label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Title, new { @class = "test-title form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Image Url
+                        </label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ImagePath, new { @class = "test-imagepath form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Section
+                        </label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("SectionId", null, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Language
+                        </label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("LanguageId", null, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-collapse panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <span class="label-panel-heading">Question Details</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span class="label-question-remove label label-danger pull-right" id="removeQuestion">Remove Question</span>
+                            <span class="label-question-add label label-info pull-right" id="addQuestion">Add Question</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body panel-question-details">
+                    @if (Model.Questions.Any())
+                    {
+                        for (int i = 0; i < Model.Questions.Count(); i++)
+                        {
+                            int id = i + 1;
+
+                            <div class="panel panel-collapse panel-success panel-question" id="question-detail-sr-no-@id">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <span class="label-panel-question-sr-no-heading">Sr. No @id</span>
+                                            <span class="label-question-no">@i</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            Question Statement
+                                        </label>
+                                        <div class="col-md-10">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input class="form-control question-statement" type="text" value="@Model.Questions.ElementAt(i).Statement" name="Questions[@i].Statement">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="label-questionoption-add label label-info">Add Option</span>
+                                                <span class="label-questionoption-remove label label-danger">Remove Option</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (Model.Questions.ElementAt(i).QuestionOptions != null && Model.Questions.ElementAt(i).QuestionOptions.Any())
+                                    {
+                                        for (int j = 0; j < Model.Questions.ElementAt(i).QuestionOptions.Count(); j++)
+                                        {
+                                            <div class="panel panel-collapse panel-success panel-questionoption">
+                                                <div class="panel-body">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">
+                                                                Option
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input class="form-control questionoption-text" type="text" value="@Model.Questions.ElementAt(i).QuestionOptions.ElementAt(j).OptionText" name="Questions[@i].QuestionOptions[@j].OptionText">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-2">
+                                                                Score
+                                                            </label>
+                                                            <div class="col-md-10">
+                                                                <input class="form-control questionoption-score" type="number" value="@Model.Questions.ElementAt(i).QuestionOptions.ElementAt(j).Score" name="Questions[@i].QuestionOptions[@j].Score">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="panel panel-collapse panel-success panel-question" id="question-detail-sr-no-1">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <span class="label-panel-question-sr-no-heading">Sr. No 1</span>
+                                        <span class="label-question-no">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Question Statement
+                                    </label>
+                                    <div class="col-md-10">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input class="form-control question-statement" type="text" value="" name="Questions[0].Statement">                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="label-questionoption-add label label-info">Add Option</span>
+                                            <span class="label-questionoption-remove label label-danger">Remove Option</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-collapse panel-success panel-questionoption">
+                                    <div class="panel-body">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">
+                                                    Option
+                                                </label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control questionoption-text" type="text" value="" name="Questions[0].QuestionOptions[0].OptionText">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">
+                                                    Score
+                                                </label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control questionoption-score" type="number" value="" name="Questions[0].QuestionOptions[0].Score">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save Details" class="btn btn-primary pull-right" id="createTest" />
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function addQuestion_ClickHandler() {
+
+            var questionCount = $('.panel-question-details .panel-question').length;
+            var srNo = '';
+            if (questionCount > 0) {
+                srNo = questionCount + 1;
+
+                var newQuestion = '<div class="panel panel-collapse panel-success panel-question" id="question-detail-sr-no-' + srNo + '">\
+                                    <div class="panel-heading">\
+                                        <div class="row">\
+                                            <div class="col-md-10">\
+                                                <span class="label-panel-question-sr-no-heading">Sr. No ' + srNo + '</span>\
+                                                <span class="label-question-no">' + questionCount + '</span>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                    <div class="panel-body">\
+                                        <div class="form-group">\
+                                            <label class="control-label col-md-2">\
+                                                Question Statement\
+                                            </label>\
+                                            <div class="col-md-10">\
+                                                <div class="col-md-6">\
+                                                    <div class="form-group">\
+                                                        <input class="form-control question-statement" type="text" value="" name="Questions[' + questionCount + '].Statement">\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-6">\
+                                                    <span class="label-questionoption-add label label-info">Add Option</span>\
+                                                    <span class="label-questionoption-remove label label-danger">Remove Option</span>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                        <div class="panel panel-collapse panel-success panel-questionoption">\
+                                            <div class="panel-body">\
+                                                <div class="col-md-6">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-2">\
+                                                            Option\
+                                                        </label>\
+                                                        <div class="col-md-10">\
+                                                            <input class="form-control questionoption-text" type="text" value="" name="Questions[' + questionCount + '].QuestionOptions[0].OptionText">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-6">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-2">\
+                                                            Score\
+                                                        </label>\
+                                                        <div class="col-md-10">\
+                                                            <input class="form-control questionoption-score" type="number" value="" name="Questions[' + questionCount + '].QuestionOptions[0].Score">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                            </div>';
+
+                $('.panel-question-details').append(newQuestion);
+            }
+        }
+
+        function removeQuestion_ClickHandler() {
+            var questionCount = $('.panel-question-details .panel-question').length;
+
+            if (questionCount > 1) {
+                $('.panel-question-details .panel-question').last().remove();
+            }
+            else {
+                alert('Atleast one question is required');
+            }
+        }
+
+        function createTest_ClickHandler()
+        {
+            $('.text-danger').remove();
+
+            var msgRequiredField = '<span class="text-danger">Please provide valid value for this required field</span>';
+
+            var testPanel = $('.panel-test');
+
+            var testTitle = $(testPanel).find('input[name=Title]');
+
+            if (testTitle.val() == "")
+            {
+                testTitle.parent().append(msgRequiredField);
+            }
+
+            var testImageUrl = $(testPanel).find('input[name=ImagePath]');
+
+            if (testImageUrl.val() == "") {
+                testImageUrl.parent().append(msgRequiredField);
+            }
+
+            var lstQuestionStatment = $('.question-statement');
+
+            $(lstQuestionStatment).each(function (index) {
+                if ($(this).val() == "") {
+                    $(this).parent().append(msgRequiredField);
+                }
+            });
+
+            var lstQuestionOptionText = $('.questionoption-text');
+
+            $(lstQuestionOptionText).each(function (index) {
+                if ($(this).val() == "") {
+                    $(this).parent().append(msgRequiredField);
+                }
+            });
+
+            var lstQuestionOptionScore = $('.questionoption-score');
+
+            $(lstQuestionOptionScore).each(function (index) {
+                if ($(this).val() == "") {
+                    $(this).parent().append(msgRequiredField);
+                }
+            });
+
+            if ($('.text-danger').length > 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+        $(document).ready(function () {
+            $('[id=addQuestion]').on('click', addQuestion_ClickHandler);
+            $('[id=removeQuestion]').on('click', removeQuestion_ClickHandler);
+
+            $('[id=createTest]').on('click', createTest_ClickHandler);
+
+            $('.panel-question-details').on('click', '.label-questionoption-add', function () {
+                var parentParentPanel = $(this).parents('.panel-question');
+
+                var questionNo = $(parentParentPanel).find('span.label-question-no').text();
+
+                var questionOptionCount = $(parentParentPanel).find('div.panel-questionoption').length;
+
+                var newOption = '<div class="panel panel-collapse panel-success panel-questionoption">\
+                                            <div class="panel-body">\
+                                                <div class="col-md-6">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-2">\
+                                                            Option\
+                                                        </label>\
+                                                        <div class="col-md-10">\
+                                                            <input class="form-control questionoption-text" type="text" value="" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].OptionText">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-6">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-2">\
+                                                            Score\
+                                                        </label>\
+                                                        <div class="col-md-10">\
+                                                            <input class="form-control questionoption-score" type="number" value="" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].Score">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>';
+
+                $(parentParentPanel).find('.panel-body').first().append(newOption);
+            });
+
+            $('.panel-question-details').on('click', '.label-questionoption-remove', function () {
+                var parentParentPanel = $(this).parents('.panel-question');
+
+                var questionoption = $(parentParentPanel).find('div.panel-questionoption')
+                if ($(questionoption).length > 1)
+                {
+                    $(questionoption).last().remove();
+                }
+                else {
+                    alert('Atleast one option is required');
+                }
+            });            
+        });
+    </script>
+}
+
+
+

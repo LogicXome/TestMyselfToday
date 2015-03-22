@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TestMyselfToday.Models.TestResult>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+    .panel-grid {
+        margin-top: 10px;
+        overflow: auto;
+    }
+</style>
+
+<div class="col-md-12">
+    <div class="panel panel-grid">
+        <div class="panel-success">
+            <div class="panel-heading">
+                Test Result Details
+            </div>
+            <div class="panel-body">
+                <p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+
+                <table class="table table-condensed table-hover table-bordered table-responsive">
+                    <tr>
+                        <th>
+                            Test
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                        <th class="hidden-xs">
+                            Details
+                        </th>
+                        <th>
+                            From
+                        </th>
+                        <th>
+                            To
+                        </th>
+
+                        <th colspan="2"></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Test.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TitleText)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ResultText)
+                        </td>
+                        <td class="hidden-xs">
+                            @Html.DisplayFor(modelItem => item.ResultDetail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ScoreFrom)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ScoreTo)
+                        </td>
+
+                        <td colspan="2">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("View", "TestResult", "Home", new { id = item.Id }, null) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

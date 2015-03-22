@@ -1,0 +1,90 @@
+﻿@model IEnumerable<TestMyselfToday.Models.Test>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<style type="text/css">
+    .test-start {
+        vertical-align: bottom;
+        text-align: center;
+        padding: 20px;
+        margin: 0px;
+    }
+
+        .test-start span {
+            padding: 3px;
+            padding-right: 50px;
+            padding-left: 50px;
+            font-size: large;
+            font-family: cursive;
+        }
+
+    .question-panel {
+        padding: 8px;
+        border: 1px solid gray;
+        margin: 5%;
+        border-radius: 5px;
+    }
+
+    .question-item {
+        text-decoration: none !important;
+    }
+
+        .question-item div {
+            height: 300px;
+            background-size: cover !important;
+            background-position: 50% 50% !important;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+        }
+
+    .question-item-text {
+        text-align: center;
+        vertical-align: middle;
+        padding: 11%;
+        height: 240px;
+        color: white;
+        font-weight: bold;
+        font-size: xx-large;
+    }
+
+    .color-overlay {
+        background-image: url(images/overlay-pattern2.png);
+        left: 0px;
+        top: 0px;
+    }
+
+    .question-item-background {
+    }
+
+    .question-item-text {
+        font-family: cursive;
+    }
+</style>
+
+<br /><br />
+<div class="row">
+    <div class="col-md-12">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="question-panel">
+                    <div class="question-item-background" style="background-image: url(@item.ImagePath);">
+                        <div class="color-overlay">
+                            <p class="question-item-text">
+                                @item.Title
+
+                            </p>
+                            <p class="test-start">
+                                <a href="@Url.Action("Test", "Home", new { id = item.Id })">
+                                    <span class="btn btn-primary btn-lg">Start</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
