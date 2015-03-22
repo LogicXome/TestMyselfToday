@@ -11,15 +11,15 @@
         <EntityTypeShape EntityType="TMTModel.RelatedTest" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TMTModel.TestResult" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="TMTModel.Section" Width="1.5" PointX="0.75" PointY="3.25" />
-        <EntityTypeShape EntityType="TMTModel.QuestionOption" Width="1.5" PointX="7.5" PointY="1.375" />
         <EntityTypeShape EntityType="TMTModel.Test" Width="1.5" PointX="3" PointY="3.75" />
         <AssociationConnector Association="TMTModel.FK_Test_Language" />
         <AssociationConnector Association="TMTModel.FK_Question_Test" />
-        <AssociationConnector Association="TMTModel.FK_QuestionOption_Question" />
         <AssociationConnector Association="TMTModel.FK_RelatedTest_Test" />
         <AssociationConnector Association="TMTModel.FK_RelatedTest_TestR" />
         <AssociationConnector Association="TMTModel.FK_Test_Section" />
         <AssociationConnector Association="TMTModel.FK_TestResult_Test" />
+        <EntityTypeShape EntityType="TMTModel.QuestionOption" Width="1.5" PointX="7.5" PointY="1.375" />
+        <AssociationConnector Association="TMTModel.FK_QuestionOption_Question" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

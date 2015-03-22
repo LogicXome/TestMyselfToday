@@ -35,7 +35,7 @@
     <Property Name="QuestionId" Type="bigint" Nullable="false" />
     <Property Name="OptionText" Type="nvarchar" MaxLength="1000" />
     <Property Name="Score" Type="int" Nullable="false" />
-    <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ImagePath" Type="nvarchar" MaxLength="1000" />
     <Property Name="SortOrder" Type="int" />
   </EntityType>
   <EntityType Name="RelatedTest">

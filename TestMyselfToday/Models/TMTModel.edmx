@@ -40,7 +40,7 @@
           <Property Name="QuestionId" Type="bigint" Nullable="false" />
           <Property Name="OptionText" Type="nvarchar" MaxLength="1000" />
           <Property Name="Score" Type="int" Nullable="false" />
-          <Property Name="ImageUrl" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="1000" />
           <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="RelatedTest">
@@ -275,7 +275,6 @@
           <EntitySet Name="RelatedTests" EntityType="Self.RelatedTest" />
           <EntitySet Name="TestResults" EntityType="Self.TestResult" />
           <EntitySet Name="Sections" EntityType="TMTModel.Section" />
-          <EntitySet Name="QuestionOptions" EntityType="TMTModel.QuestionOption" />
           <EntitySet Name="Tests" EntityType="TMTModel.Test" />
           <AssociationSet Name="FK_Test_Language" Association="TMTModel.FK_Test_Language">
             <End Role="Language" EntitySet="Languages" />
@@ -284,10 +283,6 @@
           <AssociationSet Name="FK_Question_Test" Association="TMTModel.FK_Question_Test">
             <End Role="Test" EntitySet="Tests" />
             <End Role="Question" EntitySet="Questions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionOption_Question" Association="TMTModel.FK_QuestionOption_Question">
-            <End Role="Question" EntitySet="Questions" />
-            <End Role="QuestionOption" EntitySet="QuestionOptions" />
           </AssociationSet>
           <AssociationSet Name="FK_RelatedTest_Test" Association="TMTModel.FK_RelatedTest_Test">
             <End Role="Test" EntitySet="Tests" />
@@ -305,6 +300,11 @@
             <End Role="Test" EntitySet="Tests" />
             <End Role="TestResult" EntitySet="TestResults" />
           </AssociationSet>
+          <EntitySet Name="QuestionOptions" EntityType="TMTModel.QuestionOption" />
+          <AssociationSet Name="FK_QuestionOption_Question" Association="TMTModel.FK_QuestionOption_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Section">
           <Key>
@@ -314,18 +314,6 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="Tests" Relationship="TMTModel.FK_Test_Section" FromRole="Section" ToRole="Test" />
-        </EntityType>
-        <EntityType Name="QuestionOption">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QuestionId" Type="Int64" Nullable="false" />
-          <Property Name="OptionText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Score" Type="Int32" Nullable="false" />
-          <Property Name="ImageUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="SortOrder" Type="Int32" />
-          <NavigationProperty Name="Question" Relationship="TMTModel.FK_QuestionOption_Question" FromRole="QuestionOption" ToRole="Question" />
         </EntityType>
         <EntityType Name="Test">
           <Key>
@@ -368,18 +356,6 @@
             </Principal>
             <Dependent Role="Question">
               <PropertyRef Name="TestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_QuestionOption_Question">
-          <End Type="TMTModel.Question" Role="Question" Multiplicity="1" />
-          <End Type="TMTModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuestionOption">
-              <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -428,6 +404,30 @@
             </Principal>
             <Dependent Role="TestResult">
               <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int64" Nullable="false" />
+          <Property Name="OptionText" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="TMTModel.FK_QuestionOption_Question" FromRole="QuestionOption" ToRole="Question" />
+        </EntityType>
+        <Association Name="FK_QuestionOption_Question">
+          <End Type="TMTModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="TMTModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -500,18 +500,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="QuestionOptions">
-            <EntityTypeMapping TypeName="TMTModel.QuestionOption">
-              <MappingFragment StoreEntitySet="QuestionOption">
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Score" ColumnName="Score" />
-                <ScalarProperty Name="OptionText" ColumnName="OptionText" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tests">
             <EntityTypeMapping TypeName="TMTModel.Test">
               <MappingFragment StoreEntitySet="Test">
@@ -523,6 +511,18 @@
                 <ScalarProperty Name="SectionId" ColumnName="SectionId" />
                 <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="TMTModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOption">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="OptionText" ColumnName="OptionText" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

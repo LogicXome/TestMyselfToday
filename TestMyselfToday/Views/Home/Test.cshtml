@@ -149,6 +149,15 @@
     }
     .radio{
         padding: 5px;
+        overflow: hidden;
+    }
+
+    .question-img{
+
+    }
+
+    .questionoption-img{
+
     }
 </style>
 
@@ -184,8 +193,8 @@
 
                                 <h2 class="question-title">@question.Statement</h2>
                                 @if (!String.IsNullOrEmpty(question.ImagePath))
-                                {                                    
-                                    <img src="@question.ImagePath" class="img-responsive" />
+                                {
+                                    <img src="@question.ImagePath" class="img-rounded question-img" />
                                 }
 
                                 @{
@@ -201,6 +210,10 @@
                                             <span class="option-text">
                                                 @option.OptionText
                                             </span>
+                                            @if (!String.IsNullOrEmpty(option.ImagePath))
+                                            {
+                                                <img src="@option.ImagePath" class="img-thumbnail questionoption-img" />
+                                            }
                                         </div>
                                         counter++;
                                     }
