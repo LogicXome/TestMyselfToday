@@ -31,36 +31,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="QuestionOptions">
-      <EntityTypeMapping TypeName="TMTModel.QuestionOption">
-        <MappingFragment StoreEntitySet="QuestionOption">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-          <ScalarProperty Name="OptionText" ColumnName="OptionText" />
-          <ScalarProperty Name="Score" ColumnName="Score" />
-          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="RelatedTests">
       <EntityTypeMapping TypeName="TMTModel.RelatedTest">
         <MappingFragment StoreEntitySet="RelatedTest">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="TestId" ColumnName="TestId" />
           <ScalarProperty Name="RelatedTestId" ColumnName="RelatedTestId" />
-          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Tests">
-      <EntityTypeMapping TypeName="TMTModel.Test">
-        <MappingFragment StoreEntitySet="Test">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
-          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-          <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
           <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -79,21 +55,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TestStats">
-      <EntityTypeMapping TypeName="TMTModel.TestStat">
-        <MappingFragment StoreEntitySet="TestStat">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TestId" ColumnName="TestId" />
-          <ScalarProperty Name="TestUsage" ColumnName="TestUsage" />
-          <ScalarProperty Name="TestRating" ColumnName="TestRating" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Sections">
       <EntityTypeMapping TypeName="TMTModel.Section">
         <MappingFragment StoreEntitySet="Section">
           <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="TMTModel.Test">
+        <MappingFragment StoreEntitySet="Test">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UsageCount" ColumnName="UsageCount" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
+          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionOptions">
+      <EntityTypeMapping TypeName="TMTModel.QuestionOption">
+        <MappingFragment StoreEntitySet="QuestionOption">
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="OptionText" ColumnName="OptionText" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

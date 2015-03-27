@@ -127,28 +127,102 @@
         content: '';
     }
 
-    .testprocess-panel{
+    .testprocess-panel {
         margin-top: 10px;
     }
 
-    .test-title{
+    .test-title {
         font-family: cursive;
         font-size: large;
     }
-    .question-title{
+
+    .question-title {
         font-family: cursive;
         font-size: x-large;
-        font-weight:bold;
+        font-weight: bold;
     }
-    .question-options{
+
+    .question-options {
         font-family: cursive;
         font-size: large;
     }
-    .option-selected{
-        background-color:aliceblue;
+
+    .option-selected {
+        background-color: rgb(163, 199, 231);
     }
-    .radio{
+
+    .radio {
         padding: 5px;
+        overflow: hidden;
+    }
+
+    .question-img {
+    }
+
+    .questionoption-img {
+    }
+
+    .othertests-panel {
+        background: none;
+    }
+
+    .test-start {
+        vertical-align: bottom;
+        text-align: center;
+        padding-top: 10px;
+        margin: 0px;
+    }
+
+        .test-start span {
+            padding: 3px;
+            padding-right: 50px;
+            padding-left: 50px;
+            font-size: large;
+            font-family: cursive;
+        }
+
+    .question-panel {
+        padding: 8px;
+        border: 1px solid gray;
+        margin: 5%;
+        border-radius: 5px;
+    }
+
+    .question-item {
+        text-decoration: none !important;
+    }
+
+        .question-item-background div {
+            height: 300px;
+            background-size: cover !important;
+            background-position: 50% 50% !important;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            overflow-wrap:break-word;
+            overflow:hidden;
+        }
+
+    .question-item-text {
+        text-align: center;
+        vertical-align: middle;
+        padding: 10%;
+        height: 240px;
+        color: white;
+        font-weight: bold;
+        font-size: xx-large;
+    }
+
+    .color-overlay {
+        background-image: url(images/overlay-pattern2.png);
+        left: 0px;
+        top: 0px;
+    }
+
+    .question-item-background {
+    }
+
+    .question-item-text {
+        font-family: cursive;
     }
 </style>
 
@@ -183,11 +257,14 @@
                             <div class="tab-pane" id="@stepTemp">
 
                                 <h2 class="question-title">@question.Statement</h2>
-
+                                @if (!String.IsNullOrEmpty(question.ImagePath))
+                                {
+                                    <img src="@question.ImagePath" class="img-rounded question-img" />
+                                }
 
                                 @{
-                            var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);
-                            var counter = 1;
+                                var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);
+                                var counter = 1;
                                 }
 
                                 <div class="question-options">
@@ -198,8 +275,12 @@
                                             <span class="option-text">
                                                 @option.OptionText
                                             </span>
+                                            @if (!String.IsNullOrEmpty(option.ImagePath))
+                                            {
+                                                <img src="@option.ImagePath" class="img-thumbnail questionoption-img" />
+                                            }
                                         </div>
-                                        counter++;
+                                            counter++;
                                     }
                                 </div>
                             </div>
@@ -234,6 +315,41 @@
         </div>
     </div>
 </div>
+
+<div class="panel othertests-panel">
+    <div class="panel-success">
+        <div class="panel-body">
+            <div class="row">
+                <h3 class="col-md-4">
+                    <span class="label-link label label-success">Other Tests</span>
+                </h3>
+            </div>
+            <div class="row">
+                @foreach (var item in Model.RelatedTests)
+                {
+                    <div class="col-md-4">
+                        <div class="question-panel">
+                            <div class="question-item-background" style="background-image: url(@item.Test1.ImagePath);">
+                                <div class="color-overlay">
+                                    <p class="question-item-text">
+                                        @item.Test1.Title
+                                    </p>
+                                    <p class="test-start">
+                                        <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
+                                            <span class="btn btn-primary btn-lg">Start</span>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 

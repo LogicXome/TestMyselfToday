@@ -9,33 +9,111 @@
         margin-top: 10px;
     }
 
-    .label-sharing-facebook{
+    .label-sharing-facebook {
         padding: 8px;
         font-size: small;
     }
-    .label-sharing-googleplus{
+
+    .label-sharing-googleplus {
         padding: 8px;
         font-size: small;
     }
-    .label-sharing-twitter{
+
+    .label-sharing-twitter {
         padding: 8px;
         font-size: small;
     }
+
+
+    /*********************/
+    .sbg-button {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        line-height: 0;
+        border-radius: .5em;
+        color: white;
+        cursor: pointer;
+    }
+
+        .sbg-button:hover {
+            color: white;
+        }
+
+    .sbg-button-icon {
+        font-size: .5em;
+        padding: .5em;
+    }
+
+    .sbg-button-facebook {
+        background-color: #3b5998;
+    }
+
+        .sbg-button-facebook .sbg-button-icon {
+            padding-left: .44em;
+        }
+
+    .sbg-button-twitter {
+        background-color: #00aced;
+    }
+
+        .sbg-button-twitter .sbg-button-icon {
+            padding-left: .48em;
+        }
+
+    .sbg-button-linkedin {
+        background-color: #007bb6;
+    }
+
+    .sbg-button-google-plus {
+        background-color: #dd4b39;
+    }
+
+    .sbg-button-pinterest {
+        background-color: #cb2027;
+    }
+
+        .sbg-button-pinterest .sbg-button-icon {
+            padding-left: .45em;
+            padding-top: .48em;
+        }
+
+    .sbg-button-email {
+        background-color: #999999;
+    }
+
+        .sbg-button-email .sbg-button-icon {
+            padding-left: .434em;
+            padding-top: .44em;
+        }
 </style>
 
 <div class="col-md-8">
     <div class="panel testresult-panel">
         <div class="panel-success">
             <div class="panel-body">
-                <div class="col-lg-offset-2 col-md-8">
+                <div class="col-md-offset-2 col-md-8">
                     <div class="col-md-4">
-                        <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                        <h3>
+                            <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@Model.TitleText   @Model.ResultText" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
+                                <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                            </a>
+                        </h3>
                     </div>
                     <div class="col-md-4">
-                        <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                        <h3>
+                            <a class="sbg-button" data-sbg-network="google-plus" data-sbg-url="@Request.Url" data-sbg-width="500" data-sbg-height="505">
+                                <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                            </a>
+                        </h3>
                     </div>
                     <div class="col-md-4">
-                        <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                        <h3>
+                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="sharing,simple" data-sbg-width="600" data-sbg-height="258">
+                                <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                            </a>
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -56,18 +134,156 @@
             </div>
 
             <div class="panel-body">
-                <div class="col-lg-offset-2 col-md-8">
+                <div class="col-md-offset-2 col-md-8">
                     <div class="col-md-4">
-                        <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                        <h3>
+                            <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@Model.TitleText   @Model.ResultText" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
+                                <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                            </a>
+                        </h3>
                     </div>
                     <div class="col-md-4">
-                        <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                        <h3>
+                            <a class="sbg-button" data-sbg-network="google-plus" data-sbg-url="@Request.Url" data-sbg-width="500" data-sbg-height="505">
+                                <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                            </a>
+                        </h3>
                     </div>
                     <div class="col-md-4">
-                        <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                        <h3>
+                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="sharing,simple" data-sbg-width="600" data-sbg-height="258">
+                                <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                            </a>
+                        </h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="panel-body">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="col-md-6">
+                <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId })" class="label-link label label-success col-md-12">Test Again</a></h3>
+            </div>
+            <div class="col-md-6">
+                <h3><a href="@Url.Action("Index", "Home", new { search = "best" })" class="label-link label label-success col-md-12">Other Tests</a></h3>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function sbg() {
+            var buttons = document.getElementsByClassName('sbg-button')
+
+            for (var i = 0; i < buttons.length; i++) {
+                var button = buttons[i]
+
+                if (button.hasAttribute('data-sbg-isBinded')) { continue }
+                button.setAttribute('data-sbg-isBinded', 'true')
+
+                var network = button.getAttribute('data-sbg-network')
+
+                bindButton(network, button)
+            }
+
+            function bindButton(network, button) {
+                var height = button.getAttribute('data-sbg-height')
+                    , width = button.getAttribute('data-sbg-width')
+                    , top = Math.max(0, (screen.height - height) / 2)
+                    , left = Math.max(0, (screen.width - width) / 2)
+                    , specs =
+                        'height=' + height + ',width=' + width + ',top=' + top + ',left=' + left
+                        + ',status=0,toolbar=0,directories=0,location=0'
+                        + ',menubar=0,resizable=1,scrollbars=1'
+                    , windowName = 'sbg-window-' + Math.random()
+
+                switch (network) {
+                    case 'facebook':
+                        var url = buildUrl('http://www.facebook.com/sharer.php', {
+                            's': 100
+                            , 'p[url]': button.getAttribute('data-sbg-url')
+                            , 'p[title]': button.getAttribute('data-sbg-title')
+                            , 'p[summary]': button.getAttribute('data-sbg-summary')
+                            , 'p[images][0]': button.getAttribute('data-sbg-image')
+                        })
+                        button.onclick = function () {
+                            window.open(url, windowName, specs);
+                        }
+                        break;
+                    case 'twitter':
+                        var url = buildUrl('http://twitter.com/intent/tweet', {
+                            'text': button.getAttribute('data-sbg-text')
+                            , 'via': button.getAttribute('data-sbg-via')
+                            , 'hashtags': button.getAttribute('data-sbg-hashtags')
+                        })
+                        button.onclick = function () {
+                            window.open(url, windowName, specs);
+                        }
+                        break;
+                    case 'linkedin':
+                        var url = buildUrl('http://www.linkedin.com/shareArticle', {
+                            'mini': 'true'
+                            , 'url': button.getAttribute('data-sbg-url')
+                            , 'title': button.getAttribute('data-sbg-title')
+                            , 'source': button.getAttribute('data-sbg-source')
+                            , 'summary': button.getAttribute('data-sbg-summary')
+                        })
+                        button.onclick = function () {
+                            window.open(url, windowName, specs);
+                        }
+                        break;
+                    case 'google-plus':
+                        var url = buildUrl(' https://plus.google.com/share', {
+                            'url': button.getAttribute('data-sbg-url')
+                        })
+                        button.onclick = function () {
+                            window.open(url, windowName, specs);
+                        }
+                        break;
+                    case 'pinterest':
+                        var url = buildUrl('http://www.pinterest.com/pin/create/button/', {
+                            'url': button.getAttribute('data-sbg-url')
+                            , 'media': button.getAttribute('data-sbg-media')
+                            , 'description': button.getAttribute('data-sbg-description')
+                        })
+                        button.onclick = function () {
+                            window.open(url, windowName, specs);
+                        }
+                        break;
+                    case 'email':
+                        var url = buildUrl('mailto:', {
+                            'su': button.getAttribute('data-sbg-subject')
+                            , 'subject': button.getAttribute('data-sbg-subject')
+                            , 'body': button.getAttribute('data-sbg-body')
+                        })
+                        button.setAttribute('href', url)
+                        break;
+
+                }
+            }
+
+            function buildUrl(url, parameters) {
+                var qs = "";
+                for (var key in parameters) {
+                    var value = parameters[key];
+                    if (!value) { continue }
+                    value = value.toString().split('\"').join('"');
+                    qs += key + "=" + encodeURIComponent(value) + "&";
+                }
+                if (qs.length > 0) {
+                    qs = qs.substring(0, qs.length - 1); //chop off last "&"
+                    url = url + "?" + qs;
+                }
+                return url;
+            }
+
+        }
+
+
+        sbg();
+    </script>
+}

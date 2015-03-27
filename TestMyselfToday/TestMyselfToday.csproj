@@ -122,6 +122,7 @@
     <Compile Include="Controllers\AdminTestResultsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
+    <Compile Include="Controllers\RelatedTestsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -252,6 +253,11 @@
     <Content Include="Views\Languages\Details.cshtml" />
     <Content Include="Views\Languages\Edit.cshtml" />
     <Content Include="Views\Languages\Index.cshtml" />
+    <Content Include="Views\RelatedTests\Create.cshtml" />
+    <Content Include="Views\RelatedTests\Delete.cshtml" />
+    <Content Include="Views\RelatedTests\Details.cshtml" />
+    <Content Include="Views\RelatedTests\Edit.cshtml" />
+    <Content Include="Views\RelatedTests\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

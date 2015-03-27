@@ -1,9 +1,8 @@
-﻿@model IEnumerable<TestMyselfToday.Models.Test>
+﻿@model IEnumerable<TestMyselfToday.Models.RelatedTest>
 
 @{
     ViewBag.Title = "Index";
 }
-
 
 <style type="text/css">
     .panel-grid {
@@ -16,26 +15,23 @@
     <div class="panel panel-grid">
         <div class="panel-success">
             <div class="panel-heading">
-                Tests
+                Related Tests
             </div>
 
             <div class="panel-body">
                 <p>
                     @Html.ActionLink("Create New", "Create")
                 </p>
-                <table class="table table-condensed table-hover">
+                <table class="table">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Title)
+                            Title
                         </th>
                         <th>
-                            Language
+                            Related test
                         </th>
                         <th>
-                            Section
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DateAndTime)
+                            Order
                         </th>
                         <th></th>
                     </tr>
@@ -44,19 +40,17 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Title)
+                                @Html.DisplayFor(modelItem => item.Test.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Language.Title)
+                                @Html.DisplayFor(modelItem => item.Test1.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Section.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateAndTime)
+                                @Html.DisplayFor(modelItem => item.SortOrder)
                             </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                             </td>
                         </tr>
@@ -67,4 +61,3 @@
         </div>
     </div>
 </div>
-

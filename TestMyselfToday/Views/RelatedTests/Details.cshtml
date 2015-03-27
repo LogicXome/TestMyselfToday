@@ -1,4 +1,4 @@
-﻿@model TestMyselfToday.Models.Language
+﻿@model TestMyselfToday.Models.RelatedTest
 
 @{
     ViewBag.Title = "Details";
@@ -16,20 +16,22 @@
     <div class="panel-detail">
         <div class="panel panel-success">
             <div class="panel-heading">
-                Langauge {Details}
+                Related Test {Details}
             </div>
             <div class="panel-body">
+
                 <dl class="dl-horizontal">
+
                     <dt>
-                        @Html.DisplayNameFor(model => model.Title)
+                        Related Test
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Title)
+                        @Html.DisplayFor(model => model.Test1.Title)
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.SortOrder)
+                        Order
                     </dt>
 
                     <dd>
@@ -46,5 +48,3 @@
         </div>
     </div>
 </div>
-
-

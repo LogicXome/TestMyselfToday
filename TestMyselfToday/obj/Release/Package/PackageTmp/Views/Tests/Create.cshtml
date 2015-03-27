@@ -4,11 +4,12 @@
     ViewBag.Title = "Create";
 }
 
-<style type="text/css">    
-    body{
+<style type="text/css">
+    body {
         background-color: white;
     }
-    .test-panel{
+
+    .test-panel {
         margin-top: 10px;
     }
 
@@ -32,23 +33,31 @@
     }
 
     .label-questionoption-add {
-        padding: 4px;
+        padding: 5px;
         margin: 3px;
         font-size: small;
         font-style: italic;
     }
 
     .label-questionoption-remove {
-        padding: 4px;
+        padding: 5px;
         margin: 3px;
         font-size: small;
         font-style: italic;
+    }
+
+    .label-panel-question-sr-no-heading{
+        font-size: small;
+        margin: 6px;
     }
 
     .label-question-no {
         display: none;
     }
 
+    .test-isactive{
+        height: 22px;
+    }
 </style>
 
 <div class="panel test-panel">
@@ -75,10 +84,19 @@
 
                     <div class="form-group">
                         <label class="control-label col-md-2">
-                            Image Url
+                            Image
                         </label>
                         <div class="col-md-10">
                             @Html.TextBoxFor(model => model.ImagePath, new { @class = "test-imagepath form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Order
+                        </label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.SortOrder, new { @class = "test-order form-control", @Value = "1", @Type = "number" })
                         </div>
                     </div>
 
@@ -97,6 +115,15 @@
                         </label>
                         <div class="col-md-10">
                             @Html.DropDownList("LanguageId", null, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Is Active
+                        </label>
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.IsActive, new { @class = "test-isactive form-control" })
                         </div>
                     </div>
                 </div>
@@ -124,26 +151,48 @@
                             <div class="panel panel-collapse panel-success panel-question" id="question-detail-sr-no-@id">
                                 <div class="panel-heading">
                                     <div class="row">
-                                        <div class="col-md-10">
+                                        <div class="col-md-6">
                                             <span class="label-panel-question-sr-no-heading">Sr. No @id</span>
                                             <span class="label-question-no">@i</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="label-questionoption-add label label-info">Add Option</span>
+                                            <span class="label-questionoption-remove label label-danger">Remove Option</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">
-                                            Question Statement
-                                        </label>
-                                        <div class="col-md-10">
-                                            <div class="col-md-6">
+                                    <div class="panel-collapse panel-success panel-question-fields">
+                                        <div class="form-group">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input class="form-control question-statement" type="text" value="@Model.Questions.ElementAt(i).Statement" name="Questions[@i].Statement">
+                                                    <label class="control-label col-md-4">
+                                                        Question Statement
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control question-statement" type="text" value="@Model.Questions.ElementAt(i).Statement" name="Questions[@i].Statement">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <span class="label-questionoption-add label label-info">Add Option</span>
-                                                <span class="label-questionoption-remove label label-danger">Remove Option</span>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">
+                                                        Image
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control question-imagepath" type="text" value="@Model.Questions.ElementAt(i).ImagePath" name="Questions[@i].ImagePath">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4">
+                                                        Order
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        <input class="form-control question-order" type="number" value="@Model.Questions.ElementAt(i).SortOrder" name="Questions[@i].SortOrder">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -153,23 +202,43 @@
                                         {
                                             <div class="panel panel-collapse panel-success panel-questionoption">
                                                 <div class="panel-body">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="control-label col-md-2">
+                                                            <label class="control-label col-md-3">
                                                                 Option
                                                             </label>
-                                                            <div class="col-md-10">
+                                                            <div class="col-md-9">
                                                                 <input class="form-control questionoption-text" type="text" value="@Model.Questions.ElementAt(i).QuestionOptions.ElementAt(j).OptionText" name="Questions[@i].QuestionOptions[@j].OptionText">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <label class="control-label col-md-2">
+                                                            <label class="control-label col-md-3">
                                                                 Score
                                                             </label>
-                                                            <div class="col-md-10">
+                                                            <div class="col-md-9">
                                                                 <input class="form-control questionoption-score" type="number" value="@Model.Questions.ElementAt(i).QuestionOptions.ElementAt(j).Score" name="Questions[@i].QuestionOptions[@j].Score">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">
+                                                                Image
+                                                            </label>
+                                                            <div class="col-md-9">
+                                                                <input class="form-control questionoption-imagepath" type="text" value="@Model.Questions.ElementAt(i).QuestionOptions.ElementAt(j).ImagePath" name="Questions[@i].QuestionOptions[@j].ImagePath">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-3">
+                                                                Order
+                                                            </label>
+                                                            <div class="col-md-9">
+                                                                <input class="form-control questionoption-order" type="number" value="@Model.Questions.ElementAt(i).QuestionOptions.ElementAt(j).SortOrder" name="Questions[@i].QuestionOptions[@j].SortOrder">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -186,49 +255,91 @@
                         <div class="panel panel-collapse panel-success panel-question" id="question-detail-sr-no-1">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-6">
                                         <span class="label-panel-question-sr-no-heading">Sr. No 1</span>
                                         <span class="label-question-no">0</span>
                                     </div>
+                                    <div class="col-md-6">
+                                        <span class="label-questionoption-add label label-info">Add Option</span>
+                                        <span class="label-questionoption-remove label label-danger">Remove Option</span>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">
-                                        Question Statement
-                                    </label>
-                                    <div class="col-md-10">
-                                        <div class="col-md-6">
+                                <div class="panel-collapse panel-success panel-question-fields">
+                                    <div class="form-group">
+                                        <div class="col-md-4">
                                             <div class="form-group">
-                                                <input class="form-control question-statement" type="text" value="" name="Questions[0].Statement">                                                
+                                                <label class="control-label col-md-4">
+                                                    Question Statement
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control question-statement" type="text" value="" name="Questions[0].Statement">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <span class="label-questionoption-add label label-info">Add Option</span>
-                                            <span class="label-questionoption-remove label label-danger">Remove Option</span>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Image
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control question-imagepath" type="text" value="" name="Questions[0].ImagePath">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4">
+                                                    Order
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control question-order" type="number" value="1" name="Questions[0].SortOrder">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="panel panel-collapse panel-success panel-questionoption">
                                     <div class="panel-body">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">
+                                                <label class="control-label col-md-3">
                                                     Option
                                                 </label>
-                                                <div class="col-md-10">
+                                                <div class="col-md-9">
                                                     <input class="form-control questionoption-text" type="text" value="" name="Questions[0].QuestionOptions[0].OptionText">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">
+                                                <label class="control-label col-md-3">
                                                     Score
                                                 </label>
-                                                <div class="col-md-10">
+                                                <div class="col-md-9">
                                                     <input class="form-control questionoption-score" type="number" value="" name="Questions[0].QuestionOptions[0].Score">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    Image
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control questionoption-imagepath" type="text" value="" name="Questions[0].QuestionOptions[0].ImagePath">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    Order
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control questionoption-order" type="number" value="1" name="Questions[0].QuestionOptions[0].SortOrder">
                                                 </div>
                                             </div>
                                         </div>
@@ -263,48 +374,90 @@
                 var newQuestion = '<div class="panel panel-collapse panel-success panel-question" id="question-detail-sr-no-' + srNo + '">\
                                     <div class="panel-heading">\
                                         <div class="row">\
-                                            <div class="col-md-10">\
-                                                <span class="label-panel-question-sr-no-heading">Sr. No ' + srNo + '</span>\
+                                            <div class="col-md-6">\
+                                               <span class="label-panel-question-sr-no-heading">Sr. No ' + srNo + '</span>\
                                                 <span class="label-question-no">' + questionCount + '</span>\
+                                            </div>\
+                                            <div class="col-md-6">\
+                                                <span class="label-questionoption-add label label-info">Add Option</span>\
+                                                <span class="label-questionoption-remove label label-danger">Remove Option</span>\
                                             </div>\
                                         </div>\
                                     </div>\
                                     <div class="panel-body">\
-                                        <div class="form-group">\
-                                            <label class="control-label col-md-2">\
-                                                Question Statement\
-                                            </label>\
-                                            <div class="col-md-10">\
-                                                <div class="col-md-6">\
+                                        <div class="panel-collapse panel-success panel-question-fields">\
+                                            <div class="form-group">\
+                                                <div class="col-md-4">\
                                                     <div class="form-group">\
-                                                        <input class="form-control question-statement" type="text" value="" name="Questions[' + questionCount + '].Statement">\
+                                                        <label class="control-label col-md-4">\
+                                                            Question Statement\
+                                                        </label>\
+                                                        <div class="col-md-8">\
+                                                            <input class="form-control question-statement" type="text" value="" name="Questions[' + questionCount + '].Statement">\
+                                                        </div>\
                                                     </div>\
                                                 </div>\
-                                                <div class="col-md-6">\
-                                                    <span class="label-questionoption-add label label-info">Add Option</span>\
-                                                    <span class="label-questionoption-remove label label-danger">Remove Option</span>\
+                                                <div class="col-md-4">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-4">\
+                                                            Image\
+                                                        </label>\
+                                                        <div class="col-md-8">\
+                                                            <input class="form-control question-imagepath" type="text" value="" name="Questions[' + questionCount + '].ImagePath">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-4">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-4">\
+                                                            Order\
+                                                        </label>\
+                                                        <div class="col-md-8">\
+                                                            <input class="form-control question-order" type="number" value="' + srNo + '" name="Questions[' + questionCount + '].SortOrder">\
+                                                        </div>\
+                                                    </div>\
                                                 </div>\
                                             </div>\
                                         </div>\
                                         <div class="panel panel-collapse panel-success panel-questionoption">\
                                             <div class="panel-body">\
-                                                <div class="col-md-6">\
+                                                <div class="col-md-3">\
                                                     <div class="form-group">\
-                                                        <label class="control-label col-md-2">\
+                                                        <label class="control-label col-md-3">\
                                                             Option\
                                                         </label>\
-                                                        <div class="col-md-10">\
+                                                        <div class="col-md-9">\
                                                             <input class="form-control questionoption-text" type="text" value="" name="Questions[' + questionCount + '].QuestionOptions[0].OptionText">\
                                                         </div>\
                                                     </div>\
                                                 </div>\
-                                                <div class="col-md-6">\
+                                                <div class="col-md-3">\
                                                     <div class="form-group">\
-                                                        <label class="control-label col-md-2">\
+                                                        <label class="control-label col-md-3">\
                                                             Score\
                                                         </label>\
-                                                        <div class="col-md-10">\
+                                                        <div class="col-md-9">\
                                                             <input class="form-control questionoption-score" type="number" value="" name="Questions[' + questionCount + '].QuestionOptions[0].Score">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-3">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-3">\
+                                                            Image\
+                                                        </label>\
+                                                        <div class="col-md-9">\
+                                                            <input class="form-control questionoption-imagepath" type="text" value="" name="Questions[' + questionCount + '].QuestionOptions[0].ImagePath">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-3">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-3">\
+                                                            Order\
+                                                        </label>\
+                                                        <div class="col-md-9">\
+                                                            <input class="form-control questionoption-order" type="number" value="1" name="Questions[' + questionCount + '].QuestionOptions[0].SortOrder">\
                                                         </div>\
                                                     </div>\
                                                 </div>\
@@ -328,8 +481,7 @@
             }
         }
 
-        function createTest_ClickHandler()
-        {
+        function createTest_ClickHandler() {
             $('.text-danger').remove();
 
             var msgRequiredField = '<span class="text-danger">Please provide valid value for this required field</span>';
@@ -338,8 +490,7 @@
 
             var testTitle = $(testPanel).find('input[name=Title]');
 
-            if (testTitle.val() == "")
-            {
+            if (testTitle.val() == "") {
                 testTitle.parent().append(msgRequiredField);
             }
 
@@ -349,6 +500,12 @@
                 testImageUrl.parent().append(msgRequiredField);
             }
 
+            var testOrder = $(testPanel).find('input[name=SortOrder]');
+
+            if (testOrder.val() == "") {
+                testOrder.parent().append(msgRequiredField);
+            }
+
             var lstQuestionStatment = $('.question-statement');
 
             $(lstQuestionStatment).each(function (index) {
@@ -356,6 +513,15 @@
                     $(this).parent().append(msgRequiredField);
                 }
             });
+
+            var lstQuestionOrder = $('.question-order');
+
+            $(lstQuestionOrder).each(function (index) {
+                if ($(this).val() == "") {
+                    $(this).parent().append(msgRequiredField);
+                }
+            });
+
 
             var lstQuestionOptionText = $('.questionoption-text');
 
@@ -373,8 +539,15 @@
                 }
             });
 
-            if ($('.text-danger').length > 0)
-            {
+            var lstQuestionOptionOrder = $('.questionoption-order');
+
+            $(lstQuestionOptionOrder).each(function (index) {
+                if ($(this).val() == "") {
+                    $(this).parent().append(msgRequiredField);
+                }
+            });
+
+            if ($('.text-danger').length > 0) {
                 return false;
             }
 
@@ -395,25 +568,47 @@
 
                 var questionOptionCount = $(parentParentPanel).find('div.panel-questionoption').length;
 
+                var questionOptionOrder = questionOptionCount + 1;
+
                 var newOption = '<div class="panel panel-collapse panel-success panel-questionoption">\
                                             <div class="panel-body">\
-                                                <div class="col-md-6">\
+                                                <div class="col-md-3">\
                                                     <div class="form-group">\
-                                                        <label class="control-label col-md-2">\
+                                                        <label class="control-label col-md-3">\
                                                             Option\
                                                         </label>\
-                                                        <div class="col-md-10">\
+                                                        <div class="col-md-9">\
                                                             <input class="form-control questionoption-text" type="text" value="" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].OptionText">\
                                                         </div>\
                                                     </div>\
                                                 </div>\
-                                                <div class="col-md-6">\
+                                                <div class="col-md-3">\
                                                     <div class="form-group">\
-                                                        <label class="control-label col-md-2">\
+                                                        <label class="control-label col-md-3">\
                                                             Score\
                                                         </label>\
-                                                        <div class="col-md-10">\
+                                                        <div class="col-md-9">\
                                                             <input class="form-control questionoption-score" type="number" value="" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].Score">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-3">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-3">\
+                                                            Image\
+                                                        </label>\
+                                                        <div class="col-md-9">\
+                                                            <input class="form-control questionoption-imagepath" type="text" value="" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].ImagePath">\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                                <div class="col-md-3">\
+                                                    <div class="form-group">\
+                                                        <label class="control-label col-md-3">\
+                                                            Order\
+                                                        </label>\
+                                                        <div class="col-md-9">\
+                                                            <input class="form-control questionoption-order" type="number" value="' + questionOptionOrder + '" name="Questions[' + questionNo + '].QuestionOptions[' + questionOptionCount + '].SortOrder">\
                                                         </div>\
                                                     </div>\
                                                 </div>\
@@ -427,14 +622,13 @@
                 var parentParentPanel = $(this).parents('.panel-question');
 
                 var questionoption = $(parentParentPanel).find('div.panel-questionoption')
-                if ($(questionoption).length > 1)
-                {
+                if ($(questionoption).length > 1) {
                     $(questionoption).last().remove();
                 }
                 else {
                     alert('Atleast one option is required');
                 }
-            });            
+            });
         });
     </script>
 }

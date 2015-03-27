@@ -20,9 +20,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("New Tests", "SearchTests", "Home", new { search = "New" })</li>
-                    <li>@Html.ActionLink("Best Tests", "SearchTests", "Home", new { search = "Best" })</li>
-                    <li>@Html.ActionLink("Random Test", "Tests", "Home", new { search = "Random" })</li>
+                    <li>@Html.ActionLink("New Tests", "Index", "Home", new { search = "new" }, null)</li>
+                    <li>@Html.ActionLink("Best Tests", "Index", "Home", new { search = "best" }, null)</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Admin-Panel", "ForAdmin", "Home")</li>
