@@ -20,6 +20,7 @@
         <AssociationConnector Association="TMTModel.FK_TestResult_Test" />
         <EntityTypeShape EntityType="TMTModel.QuestionOption" Width="1.5" PointX="7.5" PointY="1.375" />
         <AssociationConnector Association="TMTModel.FK_QuestionOption_Question" />
+        <EntityTypeShape EntityType="TMTModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

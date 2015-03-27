@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TestMyselfToday.Models;
+using TestMyselfToday.Models.Code;
 
 namespace TestMyselfToday.Controllers
 {
+    [ForAdminsOnly]
     public class LanguagesController : Controller
     {
         private TMTEntities db = new TMTEntities();

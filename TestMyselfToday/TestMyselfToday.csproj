@@ -119,14 +119,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminTestResultsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\RelatedTestsController.cs" />
+    <Compile Include="Controllers\TestResultsController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Code\ForAdminsOnly.cs" />
+    <Compile Include="Models\Code\ViewModels.cs" />
     <Compile Include="Models\CommonDictionary.cs">
       <DependentUpon>TMTModel.tt</DependentUpon>
     </Compile>
@@ -165,6 +167,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TMTModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>TMTModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -238,10 +243,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tests\Create.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
-    <Content Include="Views\AdminTestResults\Create.cshtml" />
-    <Content Include="Views\AdminTestResults\Delete.cshtml" />
-    <Content Include="Views\AdminTestResults\Edit.cshtml" />
-    <Content Include="Views\AdminTestResults\Index.cshtml" />
     <Content Include="Views\Home\ForAdmin.cshtml" />
     <Content Include="Views\Home\TestResult.cshtml" />
     <Content Include="Views\Home\Alert.cshtml" />
@@ -258,6 +259,11 @@
     <Content Include="Views\RelatedTests\Details.cshtml" />
     <Content Include="Views\RelatedTests\Edit.cshtml" />
     <Content Include="Views\RelatedTests\Index.cshtml" />
+    <Content Include="Views\TestResults\Create.cshtml" />
+    <Content Include="Views\TestResults\Delete.cshtml" />
+    <Content Include="Views\TestResults\Edit.cshtml" />
+    <Content Include="Views\TestResults\Index.cshtml" />
+    <Content Include="Views\Home\LoginForAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

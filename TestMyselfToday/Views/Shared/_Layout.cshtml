@@ -23,13 +23,22 @@
                     <li>@Html.ActionLink("New Tests", "Index", "Home", new { search = "new" }, null)</li>
                     <li>@Html.ActionLink("Best Tests", "Index", "Home", new { search = "best" }, null)</li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Admin-Panel", "ForAdmin", "Home")</li>
-                </ul>
+                @if (Session["IsTestMyTodayAdmin"] != null)
+                {
+                    bool isAdmin = Convert.ToBoolean(Session["IsTestMyTodayAdmin"]);
+
+                    if (isAdmin)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Admin-Panel", "ForAdmin", "Home")</li>
+                        </ul>
+                    }
+                }                
+                
             </div>
         </div>
     </div>
-    <div class="container body-content" >
+    <div class="container body-content">
         @RenderBody()
     </div>
 

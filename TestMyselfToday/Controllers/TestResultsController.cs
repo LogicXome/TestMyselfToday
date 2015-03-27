@@ -7,28 +7,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TestMyselfToday.Models;
+using TestMyselfToday.Models.Code;
 
 namespace TestMyselfToday.Controllers
 {
-    public class AdminTestResultsController : Controller
+    [ForAdminsOnly]
+    public class TestResultsController : Controller
     {
         private TMTEntities db = new TMTEntities();
 
-        // GET: AdminTestResults
+        // GET: TestResults
         public ActionResult Index()
         {
             var testResults = db.TestResults.Include(t => t.Test);
             return View(testResults.ToList());
         }
 
-        // GET: AdminTestResults/Create
+        // GET: TestResults/Create
         public ActionResult Create()
         {
             ViewBag.TestId = new SelectList(db.Tests, "Id", "Title");
             return View();
         }
 
-        // POST: AdminTestResults/Create
+        // POST: TestResults/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -46,7 +48,7 @@ namespace TestMyselfToday.Controllers
             return View(testResult);
         }
 
-        // GET: AdminTestResults/Edit/5
+        // GET: TestResults/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -62,7 +64,7 @@ namespace TestMyselfToday.Controllers
             return View(testResult);
         }
 
-        // POST: AdminTestResults/Edit/5
+        // POST: TestResults/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -79,7 +81,7 @@ namespace TestMyselfToday.Controllers
             return View(testResult);
         }
 
-        // GET: AdminTestResults/Delete/5
+        // GET: TestResults/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -94,7 +96,7 @@ namespace TestMyselfToday.Controllers
             return View(testResult);
         }
 
-        // POST: AdminTestResults/Delete/5
+        // POST: TestResults/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

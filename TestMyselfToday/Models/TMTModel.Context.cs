@@ -33,5 +33,6 @@ namespace TestMyselfToday.Models
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

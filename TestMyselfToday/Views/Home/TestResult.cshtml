@@ -24,6 +24,70 @@
         font-size: small;
     }
 
+    /***********************/
+    .othertests-panel {
+        background: none;
+    }
+
+    .test-start {
+        vertical-align: bottom;
+        text-align: center;
+        padding-top: 10px;
+        margin: 0px;
+    }
+
+        .test-start span {
+            padding: 3px;
+            padding-right: 50px;
+            padding-left: 50px;
+            font-size: large;
+            font-family: cursive;
+        }
+
+
+    .question-panel {
+        padding: 8px;
+        border: 1px solid gray;
+        margin: 5%;
+        border-radius: 5px;
+    }
+
+    .question-item {
+        text-decoration: none !important;
+    }
+
+        .question-item-background div {
+            height: 300px;
+            background-size: cover !important;
+            background-position: 50% 50% !important;
+            background-repeat: no-repeat;
+            border-radius: 5px;
+            overflow-wrap:break-word;
+            overflow:hidden;
+        }
+
+    .question-item-text {
+        text-align: center;
+        vertical-align: middle;
+        padding: 10%;
+        height: 240px;
+        color: white;
+        font-weight: bold;
+        font-size: xx-large;
+    }
+
+    .color-overlay {
+        background-image: url(images/overlay-pattern2.png);
+        left: 0px;
+        top: 0px;
+    }
+
+    .question-item-background {
+    }
+
+    .question-item-text {
+        font-family: cursive;
+    }
 
     /*********************/
     .sbg-button {
@@ -88,6 +152,7 @@
             padding-top: .44em;
         }
 </style>
+
 
 <div class="col-md-8">
     <div class="panel testresult-panel">
@@ -162,12 +227,40 @@
     </div>
 
     <div class="panel-body">
-        <div class="col-md-offset-3 col-md-6">
-            <div class="col-md-6">
-                <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId })" class="label-link label label-success col-md-12">Test Again</a></h3>
+        <div class="col-md-offset-4 col-md-4">
+            <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId })" class="label-link label label-success col-md-12">Test Again</a></h3>
+        </div>
+    </div>
+</div>
+
+<div class="panel othertests-panel">
+    <div class="panel-success">
+        <div class="panel-body">
+            <div class="row">
+                <h3 class="col-md-4">
+                    <span class="label-link label label-success">Other Tests</span>
+                </h3>
             </div>
-            <div class="col-md-6">
-                <h3><a href="@Url.Action("Index", "Home", new { search = "best" })" class="label-link label label-success col-md-12">Other Tests</a></h3>
+            <div class="row">
+                @foreach (var item in Model.Test.RelatedTests)
+                {
+                    <div class="col-md-4">
+                        <div class="question-panel">
+                            <div class="question-item-background" style="background-image: url(@item.Test1.ImagePath);">
+                                <div class="color-overlay">
+                                    <p class="question-item-text">
+                                        @item.Test1.Title
+                                    </p>
+                                    <p class="test-start">
+                                        <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
+                                            <span class="btn btn-primary btn-lg">Start</span>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

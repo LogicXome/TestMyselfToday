@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using TestMyselfToday.Models;
+using TestMyselfToday.Models.Code;
 
 namespace TestMyselfToday.Controllers
 {
@@ -37,6 +38,7 @@ namespace TestMyselfToday.Controllers
             return View(lstTest);
         }
 
+        [ForAdminsOnly]
         public ActionResult ForAdmin()
         {
             return View();
@@ -87,11 +89,11 @@ namespace TestMyselfToday.Controllers
                 {
                     long testId = Convert.ToInt64(form["TestId"]);
 
-                     var test = db.Tests.Find(testId);
+                    var test = db.Tests.Find(testId);
 
                     if (test != null)
                     {
-                        if(test.UsageCount != null)
+                        if (test.UsageCount != null)
                         {
                             test.UsageCount = test.UsageCount + 1;
                         }
@@ -104,11 +106,11 @@ namespace TestMyselfToday.Controllers
 
                         testResult = test.TestResults.FirstOrDefault(x => x.RangeStart <= totalScore && x.RangeEnd >= totalScore);
                     }
-                }                
+                }
 
                 if (testResult != null)
                 {
-                    testResultId = testResult.Id;                    
+                    testResultId = testResult.Id;
                 }
                 else
                 {
@@ -128,12 +130,55 @@ namespace TestMyselfToday.Controllers
             }
             TestResult testResult = db.TestResults.Find(id);
 
+            string urlReferrer = Convert.ToString(Request.UrlReferrer);
+            urlReferrer = urlReferrer.ToLower();
+
             if (testResult == null)
             {
                 return HttpNotFound();
             }
+            else if (!String.IsNullOrEmpty(urlReferrer) && (urlReferrer.Contains("facebook") || urlReferrer.Contains("google") || urlReferrer.Contains("twitter")))
+            {
+                return RedirectToAction("Test", "Home", new { id = testResult.TestId });
+            }            
             return View(testResult);
         }
+
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult LoginForAdmin()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginForAdmin(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var count = db.Users.Count(x => x.Username.Equals(model.Username, StringComparison.OrdinalIgnoreCase) && x.Password.Equals(model.Password));
+                if (count > 0)
+                {
+                    Session["IsTestMyTodayAdmin"] = true;
+
+                    return RedirectToAction("ForAdmin", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
 
 
         public ActionResult Alert(long id)

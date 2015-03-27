@@ -92,6 +92,7 @@
       <End Role="Question" EntitySet="Questions" />
       <End Role="QuestionOption" EntitySet="QuestionOptions" />
     </AssociationSet>
+    <EntitySet Name="Users" EntityType="TMTModel.User" />
   </EntityContainer>
   <EntityType Name="Section">
     <Key>
@@ -218,4 +219,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>
