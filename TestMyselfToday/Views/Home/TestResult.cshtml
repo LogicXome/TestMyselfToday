@@ -156,6 +156,9 @@
         }
 </style>
 
+@{
+    string shareOn = Convert.ToString(TempData["ResultSocialShare"]);
+}
 
 <div class="col-md-8">
     <div class="panel testresult-panel">
@@ -165,21 +168,21 @@
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@Model.TitleText   @Model.ResultText" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
-                                <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                                <span class="label-sharing-facebook label label-primary">@shareOn Facebook</span>
                             </a>
                         </h3>
                     </div>
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="google-plus" data-sbg-url="@Request.Url" data-sbg-width="500" data-sbg-height="505">
-                                <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                                <span class="label-sharing-googleplus label label-danger">@shareOn Google+</span>
                             </a>
                         </h3>
                     </div>
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="testmyselftoday" data-sbg-width="600" data-sbg-height="258">
-                                <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                                <span class="label-sharing-twitter label label-info">@shareOn Twitter</span>
                             </a>
                         </h3>
                     </div>
@@ -206,21 +209,21 @@
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@testResultTitle" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
-                                <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
+                                <span class="label-sharing-facebook label label-primary">@shareOn Facebook</span>
                             </a>
                         </h3>
                     </div>
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="google-plus" data-sbg-url="@Request.Url" data-sbg-width="500" data-sbg-height="505">
-                                <span class="label-sharing-googleplus label label-danger">Share on Google+</span>
+                                <span class="label-sharing-googleplus label label-danger">@shareOn Google+</span>
                             </a>
                         </h3>
                     </div>
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@testResultTitle, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="testmyselftoday" data-sbg-width="600" data-sbg-height="258">
-                                <span class="label-sharing-twitter label label-info">Share on Twitter</span>
+                                <span class="label-sharing-twitter label label-info">@shareOn Twitter</span>
                             </a>
                         </h3>
                     </div>
@@ -241,7 +244,7 @@
         <div class="panel-body">
             <div class="row">
                 <h3 class="col-md-4">
-                    <span class="label-link label label-success">Other Tests</span>
+                    <span class="label-link label label-success">@TempData["TestOther"]</span>
                 </h3>
             </div>
             <div class="row">
@@ -256,7 +259,7 @@
                                     </p>
                                     <p class="test-start">
                                         <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
-                                            <span class="btn btn-primary btn-lg">Start</span>
+                                            <span class="btn btn-primary btn-lg">@TempData["TestStart"]</span>
                                         </a>
                                     </p>
                                 </div>
