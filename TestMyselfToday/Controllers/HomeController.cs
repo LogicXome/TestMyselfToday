@@ -267,64 +267,64 @@ namespace TestMyselfToday.Controllers
 
             //Values w.r.t Languages
 
-            ViewBag.TestMyselfToday = "Test Myself Today";
+            TempData["TestMyselfToday"] = "Test Myself Today";
 
-            ViewBag.NewTests = "New Tests";
-            ViewBag.BestTests = "Best Tests";
-            ViewBag.RandomTest = "Random Test";
+            TempData["NewTests"] = "New Tests";
+            TempData["BestTests"] = "Best Tests";
+            TempData["RandomTest"] = "Random Test";
 
-            ViewBag.TermsConditions = "Terms and conditions";
-            ViewBag.Privacy = "Privacy";
-            ViewBag.SocialFacebook = "Facebook";
+            TempData["TermsConditions"] = "Terms and conditions";
+            TempData["Privacy"] = "Privacy";
+            TempData["SocialFacebook"] = "Facebook";
 
 
             var cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Myself-Today", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.TestMyselfToday = cd.CDValue;
+                TempData["TestMyselfToday"] = cd.CDValue;
             }
 
             cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-New", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.NewTests = cd.CDValue;
+                TempData["NewTests"] = cd.CDValue;
             }
 
             cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Best", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.BestTests = cd.CDValue;
+                TempData["BestTests"] = cd.CDValue;
             }
 
             cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Random", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.RandomTest = cd.CDValue;
+                TempData["RandomTest"] = cd.CDValue;
             }
 
             cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Random", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.TermsConditions = cd.CDValue;
+                TempData["TermsConditions"] = cd.CDValue;
             }
 
             cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Terms-Conditions", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.Privacy = cd.CDValue;
+                TempData["Privacy"] = cd.CDValue;
             }
 
             cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Social-Facebook", StringComparison.OrdinalIgnoreCase));
 
             if (cd != null)
             {
-                ViewBag.SocialFacebook = cd.CDValue;
+                TempData["SocialFacebook"] = cd.CDValue;
             }
             return PartialView();
         }

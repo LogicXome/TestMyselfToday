@@ -11,11 +11,11 @@
         languageId = Convert.ToInt64(Session["SelectedLanguage"]);
     }
 
-    string testMyselfToday = ViewBag.TestMyselfToday;
+    string testMyselfToday = Convert.ToString(TempData["TestMyselfToday"]);
     
-    string newTests = ViewBag.NewTests;
-    string bestTests = ViewBag.BestTests;
-    string randomTest = ViewBag.RandomTest;
+    string newTests = Convert.ToString(TempData["NewTests"]);
+    string bestTests = Convert.ToString(TempData["BestTests"]);
+    string randomTest = Convert.ToString(TempData["RandomTest"]);
 }
 <div class="container">
     <div class="navbar-header">

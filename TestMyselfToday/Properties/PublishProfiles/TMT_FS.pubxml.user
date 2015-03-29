@@ -46,7 +46,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2015 21:01:20</publishTime>
     </File>
     <File Include="bin/TestMyselfToday.dll">
-      <publishTime>03/29/2015 05:52:46</publishTime>
+      <publishTime>03/29/2015 06:01:31</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>03/20/2015 20:18:17</publishTime>
@@ -289,7 +289,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/29/2015 01:54:51</publishTime>
     </File>
     <File Include="Views/Home/_NavBar.cshtml">
-      <publishTime>03/29/2015 05:26:23</publishTime>
+      <publishTime>03/29/2015 06:04:18</publishTime>
     </File>
     <File Include="Views/Languages/Create.cshtml">
       <publishTime>03/29/2015 04:01:35</publishTime>
@@ -325,7 +325,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/28/2015 00:33:04</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>03/29/2015 05:52:09</publishTime>
+      <publishTime>03/29/2015 06:02:09</publishTime>
     </File>
     <File Include="Views/TestResults/Create.cshtml">
       <publishTime>03/28/2015 01:45:13</publishTime>

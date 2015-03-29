@@ -18,14 +18,14 @@
 
         <hr />
         <footer>
-            <p class="col-md-3">&copy; @DateTime.Now.Year - @ViewBag.TestMyselfToday</p>
+            <p class="col-md-3">&copy; @DateTime.Now.Year - @TempData["TestMyselfToday"]</p>
 
             <p class="col-md-9">
-                <a href="~/terms.html" target="_blank">@ViewBag.TermsConditions</a>
+                <a href="~/terms.html" target="_blank">@TempData["TermsConditions"]</a>
                 &nbsp;&nbsp;
-                <a href="~/privacy.html" target="_blank">@ViewBag.Privacy</a>
+                <a href="~/privacy.html" target="_blank">@TempData["Privacy"]</a>
                 &nbsp;&nbsp;
-                <a href="https://www.facebook.com/testmyselftoday?ref=hl" target="_blank">@ViewBag.SocialFacebook</a>
+                <a href="https://www.facebook.com/testmyselftoday?ref=hl" target="_blank">@TempData["SocialFacebook"]</a>
             </p>
         </footer>
     </div>
