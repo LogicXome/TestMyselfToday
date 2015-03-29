@@ -13,6 +13,7 @@ namespace TestMyselfToday.Controllers
     {
         TMTEntities db = new TMTEntities();
 
+        [ForUsers]
         public ActionResult Index(string search)
         {
             List<Test> lstTest = null;
@@ -27,6 +28,87 @@ namespace TestMyselfToday.Controllers
             {
                 languageId = Convert.ToInt64(Request.Form["language"]);
                 Session["SelectedLanguage"] = languageId;
+
+                var lstCommonDictionary = db.CommonDictionaries.Where(x => x.LanguageId == languageId).ToList();
+
+                Session["IsValueSet"] = true;
+
+                var cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Myself-Today", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestMyselfToday"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-New", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestNew"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Best", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestBest"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Random", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestRandom"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Terms-Conditions", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TermsConditions"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Privacy", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["Privacy"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Social-Facebook", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["SocialFacebook"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Other", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestOther"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Start", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestStart"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Again", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["TestAgain"] = cd.CDValue;
+                }
+
+                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Result-Social-Share", StringComparison.OrdinalIgnoreCase));
+
+                if (cd != null)
+                {
+                    Session["ResultSocialShare"] = cd.CDValue;
+                }
             }
             else if (Session["SelectedLanguage"] == null)
             {
@@ -39,7 +121,7 @@ namespace TestMyselfToday.Controllers
             else
             {
                 languageId = Convert.ToInt64(Session["SelectedLanguage"]);
-            }
+            }            
 
             switch (search)
             {
@@ -95,6 +177,7 @@ namespace TestMyselfToday.Controllers
             return View("Test", test);
         }
 
+        [ForUsers]
         public ActionResult Test(long? id)
         {
             if (id == null)
@@ -172,6 +255,7 @@ namespace TestMyselfToday.Controllers
             return RedirectToAction("TestResult", "Home", new { id = testResultId });
         }
 
+        [ForUsers]
         public ActionResult TestResult(long? id)
         {
             if (id == null)
@@ -243,107 +327,8 @@ namespace TestMyselfToday.Controllers
 
 
         //Partial Views
-
-        [OutputCache(Duration = 3600, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
         public PartialViewResult _NavBar()
         {
-            long languageId = 0;
-
-            if (Session["SelectedLanguage"] != null)
-            {
-                languageId = Convert.ToInt64(Session["SelectedLanguage"]);
-            }
-
-            //Values w.r.t Languages
-
-            TempData["TestMyselfToday"] = "Test Myself Today";
-
-            TempData["TestNew"] = "New Tests";
-            TempData["TestBest"] = "Best Tests";
-            TempData["TestRandom"] = "Random Test";
-
-            TempData["TermsConditions"] = "Terms and conditions";
-            TempData["Privacy"] = "Privacy";
-            TempData["SocialFacebook"] = "Facebook";
-
-            TempData["TestOther"] = "Other Tests";
-            TempData["TestStart"] = "Start";
-
-            TempData["ResultSocialShare"] = "Share on";
-
-            var lstCommonDictionary = db.CommonDictionaries.Where(x => x.LanguageId == languageId);
-
-
-            var cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Myself-Today", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TestMyselfToday"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-New", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TestNew"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Best", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TestBest"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Random", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TestRandom"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Terms-Conditions", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TermsConditions"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Privacy", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["Privacy"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Social-Facebook", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["SocialFacebook"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Other", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TestOther"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Test-Start", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["TestStart"] = cd.CDValue;
-            }
-
-            cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Result-Social-Share", StringComparison.OrdinalIgnoreCase));
-
-            if (cd != null)
-            {
-                TempData["ResultSocialShare"] = cd.CDValue;
-            }
-
             return PartialView();
         }
     }

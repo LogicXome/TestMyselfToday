@@ -12,6 +12,11 @@
         margin-top: 10px;
     }
 
+    .testresult-ad-panel {
+        background: none;
+        margin-top: 10px;
+    }
+
     .label-sharing-facebook {
         padding: 8px;
         font-size: small;
@@ -59,15 +64,15 @@
         text-decoration: none !important;
     }
 
-        .question-item-background div {
-            height: 300px;
-            background-size: cover !important;
-            background-position: 50% 50% !important;
-            background-repeat: no-repeat;
-            border-radius: 5px;
-            overflow-wrap:break-word;
-            overflow:hidden;
-        }
+    .question-item-background div {
+        height: 300px;
+        background-size: cover !important;
+        background-position: 50% 50% !important;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+    }
 
     .question-item-text {
         text-align: center;
@@ -157,14 +162,14 @@
 </style>
 
 @{
-    string shareOn = Convert.ToString(TempData["ResultSocialShare"]);
+    string shareOn = Convert.ToString(Session["ResultSocialShare"]);
 }
 
-<div class="col-md-8">
+<div class="col-md-9">
     <div class="panel testresult-panel">
         <div class="panel-success">
             <div class="panel-body">
-                <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-offset-1 col-md-10">
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@Model.TitleText   @Model.ResultText" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
@@ -205,7 +210,7 @@
             </div>
 
             <div class="panel-body">
-                <div class="col-md-offset-2 col-md-8">
+                <div class="col-md-offset-1 col-md-10">
                     <div class="col-md-4">
                         <h3>
                             <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@testResultTitle" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
@@ -234,8 +239,17 @@
 
     <div class="panel-body">
         <div class="col-md-offset-4 col-md-4">
-            <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId })" class="label-link label label-success col-md-12">Test Again</a></h3>
+            <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId })" class="label-link label label-success col-md-12">@Session["TestAgain"]</a></h3>
         </div>
+    </div>
+</div>
+<div class="col-md-3">
+    <!-- Test Myself Skyscraper -->
+    <div class="panel testresult-ad-panel">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:600px"
+             data-ad-client="ca-pub-8889029058898784"
+             data-ad-slot="8851773155"></ins>
     </div>
 </div>
 
@@ -244,7 +258,7 @@
         <div class="panel-body">
             <div class="row">
                 <h3 class="col-md-4">
-                    <span class="label-link label label-success">@TempData["TestOther"]</span>
+                    <span class="label-link label label-success">@Session["TestOther"]</span>
                 </h3>
             </div>
             <div class="row">
@@ -259,7 +273,7 @@
                                     </p>
                                     <p class="test-start">
                                         <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
-                                            <span class="btn btn-primary btn-lg">@TempData["TestStart"]</span>
+                                            <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
                                         </a>
                                     </p>
                                 </div>
@@ -385,4 +399,10 @@
 
         sbg();
     </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
 }

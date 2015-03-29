@@ -131,6 +131,11 @@
         margin-top: 10px;
     }
 
+    .testprocess-ad-panel {
+        background: none;
+        margin-top: 10px;
+    }
+
     .test-title {
         font-family: cursive;
         font-size: large;
@@ -192,15 +197,15 @@
         text-decoration: none !important;
     }
 
-        .question-item-background div {
-            height: 300px;
-            background-size: cover !important;
-            background-position: 50% 50% !important;
-            background-repeat: no-repeat;
-            border-radius: 5px;
-            overflow-wrap:break-word;
-            overflow:hidden;
-        }
+    .question-item-background div {
+        height: 300px;
+        background-size: cover !important;
+        background-position: 50% 50% !important;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+    }
 
     .question-item-text {
         text-align: center;
@@ -226,7 +231,7 @@
     }
 </style>
 
-<div class="col-md-12">
+<div class="col-md-9">
     <div class="panel testprocess-panel">
         <div class="panel-success">
             <div class="panel-body">
@@ -236,56 +241,56 @@
 
                     <ul class="nav nav-pills nav-justified">
                         @foreach (var question in lstQuestion)
-                        {
-                            string stepTemp = step + stepId;
+                            {
+                                string stepTemp = step + stepId;
 
                             <li><a href="#@stepTemp" data-toggle="tab"><span class="question-no">Q: @stepId :</span></a></li>
-                            stepId++;
-                        }
+                                stepId++;
+                            }
                     </ul>
 
                     @{
-                        stepId = 1;
+                            stepId = 1;
                     }
 
                     <form class="tab-content" action="@Url.Action("Test", "Home")" method="post">
 
                         @foreach (var question in lstQuestion)
-                        {
-                            string stepTemp = step + stepId;
+                            {
+                                string stepTemp = step + stepId;
 
                             <div class="tab-pane" id="@stepTemp">
 
                                 <h2 class="question-title">@question.Statement</h2>
                                 @if (!String.IsNullOrEmpty(question.ImagePath))
-                                {
+                                    {
                                     <img src="@question.ImagePath" class="img-rounded question-img" />
-                                }
+                                    }
 
                                 @{
-                                var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);
-                                var counter = 1;
+                                    var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);
+                                    var counter = 1;
                                 }
 
                                 <div class="question-options">
                                     @foreach (var option in lstQuestionOption)
-                                    {
+                                        {
                                         <div class="radio">
                                             <input type="radio" class="option-rb" name="o-rb-s-@stepId" id="o-rb-s-@stepId-c-@counter" value="@option.Score">
                                             <span class="option-text">
                                                 @option.OptionText
                                             </span>
                                             @if (!String.IsNullOrEmpty(option.ImagePath))
-                                            {
+                                                {
                                                 <img src="@option.ImagePath" class="img-thumbnail questionoption-img" />
-                                            }
+                                                }
                                         </div>
-                                            counter++;
-                                    }
+                                                counter++;
+                                        }
                                 </div>
                             </div>
-                                    stepId++;
-                        }
+                                        stepId++;
+                            }
 
 
 
@@ -302,7 +307,7 @@
                         </ul>
 
                         @{
-                            var questionCount = stepId - 1;
+                                var questionCount = stepId - 1;
                         }
 
                         <input type="submit" id="btnSubmit" value="Submit" hidden />
@@ -315,13 +320,22 @@
         </div>
     </div>
 </div>
+<div class="col-md-3">
+    <!-- Test Myself Skyscraper -->
+    <div class="panel testprocess-ad-panel">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:600px"
+             data-ad-client="ca-pub-8889029058898784"
+             data-ad-slot="8851773155"></ins>
+    </div>
+</div>
 
 <div class="panel othertests-panel">
     <div class="panel-success">
         <div class="panel-body">
             <div class="row">
                 <h3 class="col-md-4">
-                    <span class="label-link label label-success">@TempData["TestOther"]</span>
+                    <span class="label-link label label-success">@Session["TestOther"]</span>
                 </h3>
             </div>
             <div class="row">
@@ -336,7 +350,7 @@
                                     </p>
                                     <p class="test-start">
                                         <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
-                                            <span class="btn btn-primary btn-lg">Start</span>
+                                            <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
                                         </a>
                                     </p>
                                 </div>
@@ -348,9 +362,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 @section Scripts
@@ -422,6 +433,14 @@
             });
         });
     </script>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+
 }
 
 

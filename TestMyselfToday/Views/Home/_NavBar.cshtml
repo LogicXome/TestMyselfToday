@@ -11,11 +11,11 @@
         languageId = Convert.ToInt64(Session["SelectedLanguage"]);
     }
 
-    string testMyselfToday = Convert.ToString(TempData["TestMyselfToday"]);
+    string testMyselfToday = Convert.ToString(Session["TestMyselfToday"]);
     
-    string newTests = Convert.ToString(TempData["TestNew"]);
-    string bestTests = Convert.ToString(TempData["TestBest"]);
-    string randomTest = Convert.ToString(TempData["TestRandom"]);
+    string newTests = Convert.ToString(Session["TestNew"]);
+    string bestTests = Convert.ToString(Session["TestBest"]);
+    string randomTest = Convert.ToString(Session["TestRandom"]);
 }
 <div class="container">
     <div class="navbar-header">

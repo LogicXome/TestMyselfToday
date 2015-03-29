@@ -67,6 +67,11 @@
     .panel-languages {
         margin-top: 10px;
     }
+
+    .tests-ad{
+        text-align:center;
+        margin-top: 10px;
+    }
 </style>
 
 
@@ -93,32 +98,42 @@
         }
     </div>
 </div>
+<div class="row">
+    <div class="tests-ad">
+        <!-- Test Myself Leaderboard -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-8889029058898784"
+             data-ad-slot="5898306753"></ins>
+
+    </div>
+</div>
 <br /><br />
 <div class="row">
     <div class="col-md-12">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4">
-                <div class="question-panel">
-                    <div class="question-item-background" style="background-image: url(@item.ImagePath);">
-                        <div class="color-overlay">
-                            <p class="question-item-text">
-                                @item.Title
-
-                            </p>
-                            <p class="test-start">
-                                <a href="@Url.Action("Test", "Home", new { id = item.Id })">
-                                    <span class="btn btn-primary btn-lg">@TempData["TestStart"]</span>
-                                </a>
-                            </p>
+        <div class="col-md-12">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="question-panel">
+                        <div class="question-item-background" style="background-image: url(@item.ImagePath);">
+                            <div class="color-overlay">
+                                <p class="question-item-text">
+                                    @item.Title
+                                </p>
+                                <p class="test-start">
+                                    <a href="@Url.Action("Test", "Home", new { id = item.Id })">
+                                        <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
-
 
 @section Scripts
 {
@@ -129,5 +144,11 @@
                 $(this).parent('form').submit();
             });
         });
+    </script>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 }
