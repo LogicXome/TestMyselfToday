@@ -2,17 +2,9 @@
 
 @{
     string testResultTitle = string.Empty;
-    string testResultUrl = string.Empty;
+    string testResultUrl = Convert.ToString(Request.Url);
 
-    testResultTitle = Model.TitleText + "  " + Model.ResultText;
-    
-    if(!String.IsNullOrEmpty(Model.TextForSharing))
-    {
-        testResultUrl = Model.TextForSharing.Replace(' ', '-');
-        testResultUrl = testResultUrl.Trim().ToLower();
-    }
-    
-    testResultUrl = Request.Url + "/" + testResultUrl;
+    testResultTitle = Model.TitleText + "  " + Model.ResultText;   
 
     ViewBag.Title = testResultTitle;
 }

@@ -295,7 +295,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/29/2015 22:32:03</publishTime>
     </File>
     <File Include="Views/Home/TestResult.cshtml">
-      <publishTime>03/29/2015 22:33:16</publishTime>
+      <publishTime>03/29/2015 23:05:30</publishTime>
     </File>
     <File Include="Views/Home/_NavBar.cshtml">
       <publishTime>03/29/2015 14:50:35</publishTime>
