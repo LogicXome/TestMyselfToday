@@ -17,6 +17,9 @@ namespace TestMyselfToday.Models
         public long Id { get; set; }
         public string CDKey { get; set; }
         public string CDValue { get; set; }
+        public long LanguageId { get; set; }
         public Nullable<int> SortOrder { get; set; }
+    
+        public virtual Language Language { get; set; }
     }
 }

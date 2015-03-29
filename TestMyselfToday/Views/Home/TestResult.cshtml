@@ -1,7 +1,10 @@
 ﻿@model TestMyselfToday.Models.TestResult
 
 @{
-    ViewBag.Title = "TestResult";
+    string testResultTitle = Model.TitleText + "  " + Model.ResultText;
+
+
+    ViewBag.Title = testResultTitle;
 }
 
 <style type="text/css">
@@ -175,7 +178,7 @@
                     </div>
                     <div class="col-md-4">
                         <h3>
-                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="sharing,simple" data-sbg-width="600" data-sbg-height="258">
+                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="testmyselftoday" data-sbg-width="600" data-sbg-height="258">
                                 <span class="label-sharing-twitter label label-info">Share on Twitter</span>
                             </a>
                         </h3>
@@ -202,7 +205,7 @@
                 <div class="col-md-offset-2 col-md-8">
                     <div class="col-md-4">
                         <h3>
-                            <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@Model.TitleText   @Model.ResultText" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
+                            <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@testResultTitle" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
                                 <span class="label-sharing-facebook label label-primary">Share on Facebook</span>
                             </a>
                         </h3>
@@ -216,7 +219,7 @@
                     </div>
                     <div class="col-md-4">
                         <h3>
-                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="sharing,simple" data-sbg-width="600" data-sbg-height="258">
+                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@testResultTitle, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="testmyselftoday" data-sbg-width="600" data-sbg-height="258">
                                 <span class="label-sharing-twitter label label-info">Share on Twitter</span>
                             </a>
                         </h3>

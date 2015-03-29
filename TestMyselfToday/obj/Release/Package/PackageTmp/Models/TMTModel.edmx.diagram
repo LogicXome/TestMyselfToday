@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2ec9b7f1a5ee4c73bc05000b55bb16d8" Name="Diagram1">
-        <EntityTypeShape EntityType="TMTModel.CommonDictionary" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TMTModel.Language" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="TMTModel.Question" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TMTModel.RelatedTest" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
@@ -21,6 +20,8 @@
         <EntityTypeShape EntityType="TMTModel.QuestionOption" Width="1.5" PointX="7.5" PointY="1.375" />
         <AssociationConnector Association="TMTModel.FK_QuestionOption_Question" />
         <EntityTypeShape EntityType="TMTModel.User" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TMTModel.CommonDictionary" Width="1.5" PointX="3" PointY="9.125" />
+        <AssociationConnector Association="TMTModel.FK_CommonDictionary_Language" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

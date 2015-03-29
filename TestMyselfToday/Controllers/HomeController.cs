@@ -16,23 +16,59 @@ namespace TestMyselfToday.Controllers
         {
             List<Test> lstTest = null;
 
+            var lstLanguage = db.Languages.OrderBy(o => o.SortOrder).ToList();
+
+            ViewBag.Languages = lstLanguage;
+
+            long languageId = 0;
+
+            if (!String.IsNullOrEmpty(Request.Form["language"]))
+            {
+                languageId = Convert.ToInt64(Request.Form["language"]);
+                Session["SelectedLanguage"] = languageId;
+            }
+            else if (Session["SelectedLanguage"] == null)
+            {
+                if (lstLanguage != null && lstLanguage.Count > 0)
+                {
+                    languageId = lstLanguage.First().Id;
+                    Session["SelectedLanguage"] = languageId;
+                }
+            }
+            else
+            {
+                languageId = Convert.ToInt64(Session["SelectedLanguage"]);
+            }
+
             switch (search)
             {
                 case "new":
                     {
-                        lstTest = db.Tests.Where(x => x.IsActive).OrderByDescending(o => o.DateAndTime).ToList();
+                        lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId).OrderByDescending(o => o.DateAndTime).ToList();
                         break;
                     }
                 case "best":
                     {
-                        lstTest = db.Tests.Where(x => x.IsActive).OrderByDescending(o => o.UsageCount).ToList();
+                        lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId).OrderByDescending(o => o.UsageCount).ToList();
                         break;
                     }
                 default:
                     {
-                        lstTest = db.Tests.Where(x => x.IsActive).OrderBy(o => o.SortOrder).ToList();
+                        lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId).OrderBy(o => o.SortOrder).ToList();
                         break;
                     }
+            }
+
+
+            //Values w.r.t Languages
+
+            ViewBag.StartTest = "Start";
+
+            var cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Start", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.StartTest = cd.CDValue;
             }
 
             return View(lstTest);
@@ -42,6 +78,33 @@ namespace TestMyselfToday.Controllers
         public ActionResult ForAdmin()
         {
             return View();
+        }
+
+        public ActionResult RandomTest(long? languageId)
+        {
+            if (languageId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId).OrderByDescending(o => o.UsageCount).ToList();
+
+            Test test = null;
+
+            if (lstTest.Count > 0)
+            {
+                var r = new Random();
+
+                var randomNo = r.Next(lstTest.Count - 1);
+
+                test = lstTest.ElementAt(randomNo);
+            }
+
+            if (test == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Test", test);
         }
 
         public ActionResult Test(long? id)
@@ -121,7 +184,6 @@ namespace TestMyselfToday.Controllers
             return RedirectToAction("TestResult", "Home", new { id = testResultId });
         }
 
-
         public ActionResult TestResult(long? id)
         {
             if (id == null)
@@ -140,10 +202,9 @@ namespace TestMyselfToday.Controllers
             else if (!String.IsNullOrEmpty(urlReferrer) && (urlReferrer.Contains("facebook") || urlReferrer.Contains("google") || urlReferrer.Contains("twitter")))
             {
                 return RedirectToAction("Test", "Home", new { id = testResult.TestId });
-            }            
+            }
             return View(testResult);
         }
-
 
         //
         // GET: /Account/Login
@@ -178,9 +239,6 @@ namespace TestMyselfToday.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-
-
         public ActionResult Alert(long id)
         {
             switch (id)
@@ -193,6 +251,82 @@ namespace TestMyselfToday.Controllers
             }
 
             return View();
+        }
+
+
+        //Partial Views
+
+        public PartialViewResult _NavBar()
+        {
+            long languageId = 0;
+
+            if (Session["SelectedLanguage"] != null)
+            {
+                languageId = Convert.ToInt64(Session["SelectedLanguage"]);
+            }
+
+            //Values w.r.t Languages
+
+            ViewBag.TestMyselfToday = "Test Myself Today";
+
+            ViewBag.NewTests = "New Tests";
+            ViewBag.BestTests = "Best Tests";
+            ViewBag.RandomTest = "Random Test";
+
+            ViewBag.TermsConditions = "Terms and conditions";
+            ViewBag.Privacy = "Privacy";
+            ViewBag.SocialFacebook = "Facebook";
+
+
+            var cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Myself-Today", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.TestMyselfToday = cd.CDValue;
+            }
+
+            cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-New", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.NewTests = cd.CDValue;
+            }
+
+            cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Best", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.BestTests = cd.CDValue;
+            }
+
+            cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Random", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.RandomTest = cd.CDValue;
+            }
+
+            cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Test-Random", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.TermsConditions = cd.CDValue;
+            }
+
+            cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Terms-Conditions", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.Privacy = cd.CDValue;
+            }
+
+            cd = db.CommonDictionaries.FirstOrDefault(x => x.LanguageId == languageId && x.CDKey.Equals("Social-Facebook", StringComparison.OrdinalIgnoreCase));
+
+            if (cd != null)
+            {
+                ViewBag.SocialFacebook = cd.CDValue;
+            }
+            return PartialView();
         }
     }
 }

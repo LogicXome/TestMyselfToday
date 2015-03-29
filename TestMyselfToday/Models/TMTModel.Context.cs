@@ -25,7 +25,6 @@ namespace TestMyselfToday.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CommonDictionary> CommonDictionaries { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<RelatedTest> RelatedTests { get; set; }
@@ -34,5 +33,6 @@ namespace TestMyselfToday.Models
         public virtual DbSet<Test> Tests { get; set; }
         public virtual DbSet<QuestionOption> QuestionOptions { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CommonDictionary> CommonDictionaries { get; set; }
     }
 }

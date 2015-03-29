@@ -1,16 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="TMTModelStoreContainer" CdmEntityContainer="TMTEntities">
-    <EntitySetMapping Name="CommonDictionaries">
-      <EntityTypeMapping TypeName="TMTModel.CommonDictionary">
-        <MappingFragment StoreEntitySet="CommonDictionary">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="CDKey" ColumnName="CDKey" />
-          <ScalarProperty Name="CDValue" ColumnName="CDValue" />
-          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Languages">
       <EntityTypeMapping TypeName="TMTModel.Language">
         <MappingFragment StoreEntitySet="Language">
@@ -96,6 +86,17 @@
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommonDictionaries">
+      <EntityTypeMapping TypeName="TMTModel.CommonDictionary">
+        <MappingFragment StoreEntitySet="CommonDictionary">
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+          <ScalarProperty Name="CDValue" ColumnName="CDValue" />
+          <ScalarProperty Name="CDKey" ColumnName="CDKey" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

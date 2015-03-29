@@ -17,6 +17,7 @@ namespace TestMyselfToday.Models
         public Language()
         {
             this.Tests = new HashSet<Test>();
+            this.CommonDictionaries = new HashSet<CommonDictionary>();
         }
     
         public long Id { get; set; }
@@ -24,5 +25,6 @@ namespace TestMyselfToday.Models
         public Nullable<int> SortOrder { get; set; }
     
         public virtual ICollection<Test> Tests { get; set; }
+        public virtual ICollection<CommonDictionary> CommonDictionaries { get; set; }
     }
 }

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+
+
+@{
+    long languageId = 0;
+    
+    if (Session["SelectedLanguage"] != null)
+    {
+        languageId = Convert.ToInt64(Session["SelectedLanguage"]);
+    }
+
+    string testMyselfToday = ViewBag.TestMyselfToday;
+    
+    string newTests = ViewBag.NewTests;
+    string bestTests = ViewBag.BestTests;
+    string randomTest = ViewBag.RandomTest;
+}
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        @Html.ActionLink(testMyselfToday, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink(newTests, "Index", "Home", new { search = "new" }, null)</li>
+            <li>@Html.ActionLink(bestTests, "Index", "Home", new { search = "best" }, null)</li>
+            @if (languageId > 0)
+            {
+                <li>@Html.ActionLink(randomTest, "RandomTest", "Home", new { languageId = languageId }, null)</li>
+            }
+        </ul>
+        @if (Session["IsTestMyTodayAdmin"] != null)
+        {
+            bool isAdmin = Convert.ToBoolean(Session["IsTestMyTodayAdmin"]);
+
+            if (isAdmin)
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Admin-Panel", "ForAdmin", "Home")</li>
+                </ul>
+            }
+        }
+    </div>
+</div>

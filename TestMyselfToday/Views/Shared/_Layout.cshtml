@@ -3,43 +3,31 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Test Myself Today</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Test Myself Today", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("New Tests", "Index", "Home", new { search = "new" }, null)</li>
-                    <li>@Html.ActionLink("Best Tests", "Index", "Home", new { search = "best" }, null)</li>
-                </ul>
-                @if (Session["IsTestMyTodayAdmin"] != null)
-                {
-                    bool isAdmin = Convert.ToBoolean(Session["IsTestMyTodayAdmin"]);
-
-                    if (isAdmin)
-                    {
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>@Html.ActionLink("Admin-Panel", "ForAdmin", "Home")</li>
-                        </ul>
-                    }
-                }                
-                
-            </div>
-        </div>
+        @{Html.RenderAction("_NavBar", "Home");}
     </div>
     <div class="container body-content">
-        @RenderBody()
+        <div class="main-body">
+            @RenderBody()
+        </div>
+
+        <hr />
+        <footer>
+            <p class="col-md-3">&copy; @DateTime.Now.Year - @ViewBag.TestMyselfToday</p>
+
+            <p class="col-md-9">
+                <a href="~/terms.html" target="_blank">@ViewBag.TermsConditions</a>
+                &nbsp;&nbsp;
+                <a href="~/privacy.html" target="_blank">@ViewBag.Privacy</a>
+                &nbsp;&nbsp;
+                <a href="https://www.facebook.com/testmyselftoday?ref=hl" target="_blank">@ViewBag.SocialFacebook</a>
+            </p>
+        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

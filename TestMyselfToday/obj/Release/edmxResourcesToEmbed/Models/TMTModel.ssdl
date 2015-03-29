@@ -7,6 +7,7 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CDKey" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="CDValue" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="LanguageId" Type="bigint" Nullable="false" />
     <Property Name="SortOrder" Type="int" />
   </EntityType>
   <EntityType Name="Language">
@@ -90,6 +91,18 @@
     <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
   </EntityType>
+  <Association Name="FK_CommonDictionary_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="1" />
+    <End Role="CommonDictionary" Type="Self.CommonDictionary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommonDictionary">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Question_Test">
     <End Role="Test" Type="Self.Test" Multiplicity="1" />
     <End Role="Question" Type="Self.Question" Multiplicity="*" />
@@ -184,6 +197,10 @@
     <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TestResult" EntityType="Self.TestResult" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CommonDictionary_Language" Association="Self.FK_CommonDictionary_Language">
+      <End Role="Language" EntitySet="Language" />
+      <End Role="CommonDictionary" EntitySet="CommonDictionary" />
+    </AssociationSet>
     <AssociationSet Name="FK_Question_Test" Association="Self.FK_Question_Test">
       <End Role="Test" EntitySet="Test" />
       <End Role="Question" EntitySet="Question" />

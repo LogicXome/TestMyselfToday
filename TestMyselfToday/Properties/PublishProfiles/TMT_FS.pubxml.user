@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\TMT_Published</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\LogicXome\TMT-apphb</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -46,7 +46,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2015 21:01:20</publishTime>
     </File>
     <File Include="bin/TestMyselfToday.dll">
-      <publishTime>03/28/2015 04:28:51</publishTime>
+      <publishTime>03/29/2015 05:52:46</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>03/20/2015 20:18:17</publishTime>
@@ -97,10 +97,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2015 16:11:04</publishTime>
     </File>
     <File Include="Models/TMTModel.edmx.diagram">
-      <publishTime>03/28/2015 02:31:42</publishTime>
+      <publishTime>03/29/2015 03:48:55</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>03/20/2015 21:01:27</publishTime>
+    </File>
+    <File Include="privacy.html">
+      <publishTime>03/29/2015 02:15:44</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>03/22/2015 13:36:11</publishTime>
@@ -146,6 +149,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/_references.js">
       <publishTime>03/20/2015 20:27:07</publishTime>
+    </File>
+    <File Include="terms.html">
+      <publishTime>03/29/2015 02:25:09</publishTime>
     </File>
     <File Include="uploads/images/12-03-2015/1.jpg">
       <publishTime>03/21/2015 16:08:55</publishTime>
@@ -249,14 +255,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/AdminTests/Index.cshtml">
       <publishTime>03/21/2015 04:46:18</publishTime>
     </File>
+    <File Include="Views/CommonDictionaries/Create.cshtml">
+      <publishTime>03/29/2015 03:58:27</publishTime>
+    </File>
+    <File Include="Views/CommonDictionaries/Delete.cshtml">
+      <publishTime>03/29/2015 03:54:21</publishTime>
+    </File>
+    <File Include="Views/CommonDictionaries/Details.cshtml">
+      <publishTime>03/29/2015 03:55:52</publishTime>
+    </File>
+    <File Include="Views/CommonDictionaries/Edit.cshtml">
+      <publishTime>03/29/2015 03:58:04</publishTime>
+    </File>
+    <File Include="Views/CommonDictionaries/Index.cshtml">
+      <publishTime>03/29/2015 04:02:55</publishTime>
+    </File>
     <File Include="Views/Home/Alert.cshtml">
       <publishTime>03/21/2015 22:05:19</publishTime>
     </File>
     <File Include="Views/Home/ForAdmin.cshtml">
-      <publishTime>03/28/2015 04:15:05</publishTime>
+      <publishTime>03/29/2015 04:06:50</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>03/22/2015 16:31:57</publishTime>
+      <publishTime>03/29/2015 04:13:27</publishTime>
     </File>
     <File Include="Views/Home/LoginForAdmin.cshtml">
       <publishTime>03/28/2015 02:51:33</publishTime>
@@ -265,25 +286,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/27/2015 01:46:11</publishTime>
     </File>
     <File Include="Views/Home/TestResult.cshtml">
-      <publishTime>03/28/2015 04:25:40</publishTime>
+      <publishTime>03/29/2015 01:54:51</publishTime>
+    </File>
+    <File Include="Views/Home/_NavBar.cshtml">
+      <publishTime>03/29/2015 05:26:23</publishTime>
     </File>
     <File Include="Views/Languages/Create.cshtml">
-      <publishTime>03/26/2015 23:10:21</publishTime>
+      <publishTime>03/29/2015 04:01:35</publishTime>
     </File>
     <File Include="Views/Languages/Delete.cshtml">
-      <publishTime>03/22/2015 13:27:22</publishTime>
+      <publishTime>03/29/2015 03:54:11</publishTime>
     </File>
     <File Include="Views/Languages/Details.cshtml">
-      <publishTime>03/26/2015 23:14:52</publishTime>
+      <publishTime>03/29/2015 03:55:58</publishTime>
     </File>
     <File Include="Views/Languages/Edit.cshtml">
-      <publishTime>03/22/2015 13:36:02</publishTime>
+      <publishTime>03/29/2015 03:59:26</publishTime>
     </File>
     <File Include="Views/Languages/Index.cshtml">
       <publishTime>03/26/2015 23:20:24</publishTime>
     </File>
     <File Include="Views/RelatedTests/Create.cshtml">
-      <publishTime>03/26/2015 23:13:31</publishTime>
+      <publishTime>03/29/2015 04:01:27</publishTime>
     </File>
     <File Include="Views/RelatedTests/Delete.cshtml">
       <publishTime>03/26/2015 23:08:33</publishTime>
@@ -292,7 +316,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2015 23:15:06</publishTime>
     </File>
     <File Include="Views/RelatedTests/Edit.cshtml">
-      <publishTime>03/26/2015 23:13:18</publishTime>
+      <publishTime>03/29/2015 04:01:14</publishTime>
     </File>
     <File Include="Views/RelatedTests/Index.cshtml">
       <publishTime>03/26/2015 23:20:35</publishTime>
@@ -301,7 +325,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/28/2015 00:33:04</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>03/28/2015 01:54:57</publishTime>
+      <publishTime>03/29/2015 05:52:09</publishTime>
     </File>
     <File Include="Views/TestResults/Create.cshtml">
       <publishTime>03/28/2015 01:45:13</publishTime>
@@ -310,7 +334,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/28/2015 01:45:14</publishTime>
     </File>
     <File Include="Views/TestResults/Edit.cshtml">
-      <publishTime>03/28/2015 01:45:15</publishTime>
+      <publishTime>03/29/2015 03:59:48</publishTime>
     </File>
     <File Include="Views/TestResults/Index.cshtml">
       <publishTime>03/28/2015 01:45:16</publishTime>
@@ -322,7 +346,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/22/2015 13:07:15</publishTime>
     </File>
     <File Include="Views/Tests/Edit.cshtml">
-      <publishTime>03/22/2015 21:21:52</publishTime>
+      <publishTime>03/29/2015 04:00:59</publishTime>
     </File>
     <File Include="Views/Tests/Index.cshtml">
       <publishTime>03/26/2015 23:20:28</publishTime>
@@ -331,10 +355,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2015 20:17:51</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>03/20/2015 20:17:51</publishTime>
+      <publishTime>03/29/2015 01:31:07</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/28/2015 04:28:52</publishTime>
+      <publishTime>03/29/2015 04:17:52</publishTime>
     </File>
   </ItemGroup>
 </Project>

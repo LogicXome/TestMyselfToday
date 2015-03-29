@@ -119,6 +119,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommonDictionariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\RelatedTestsController.cs" />
@@ -189,6 +190,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="images\overlay-pattern2.png" />
+    <Content Include="privacy.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\TMTModel.edmx">
@@ -225,6 +227,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="terms.html" />
     <Content Include="uploads\images\12-03-2015\1.jpg" />
     <Content Include="uploads\images\12-03-2015\2.jpg" />
     <Content Include="uploads\images\12-03-2015\3.gif" />
@@ -264,6 +267,12 @@
     <Content Include="Views\TestResults\Edit.cshtml" />
     <Content Include="Views\TestResults\Index.cshtml" />
     <Content Include="Views\Home\LoginForAdmin.cshtml" />
+    <Content Include="Views\CommonDictionaries\Create.cshtml" />
+    <Content Include="Views\CommonDictionaries\Delete.cshtml" />
+    <Content Include="Views\CommonDictionaries\Details.cshtml" />
+    <Content Include="Views\CommonDictionaries\Edit.cshtml" />
+    <Content Include="Views\CommonDictionaries\Index.cshtml" />
+    <Content Include="Views\Home\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

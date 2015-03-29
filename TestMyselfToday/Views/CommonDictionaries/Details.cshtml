@@ -1,9 +1,8 @@
-﻿@model TestMyselfToday.Models.Language
+﻿@model TestMyselfToday.Models.CommonDictionary
 
 @{
     ViewBag.Title = "Details";
 }
-
 
 <style type="text/css">
     .panel-detail {
@@ -16,16 +15,25 @@
     <div class="panel-detail">
         <div class="panel panel-success">
             <div class="panel-heading">
-                Language {Details}
+                Common-Dictionary {Details}
             </div>
             <div class="panel-body">
+
                 <dl class="dl-horizontal">
                     <dt>
-                        @Html.DisplayNameFor(model => model.Title)
+                        @Html.DisplayNameFor(model => model.CDKey)
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Title)
+                        @Html.DisplayFor(model => model.CDKey)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CDValue)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CDValue)
                     </dd>
 
                     <dt>
@@ -34,6 +42,14 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.SortOrder)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Language.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Language.Title)
                     </dd>
 
                 </dl>
@@ -46,5 +62,3 @@
         </div>
     </div>
 </div>
-
-

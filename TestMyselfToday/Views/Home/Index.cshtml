@@ -31,15 +31,15 @@
         text-decoration: none !important;
     }
 
-        .question-item-background div {
-            height: 300px;
-            background-size: cover !important;
-            background-position: 50% 50% !important;
-            background-repeat: no-repeat;
-            border-radius: 5px;
-            overflow-wrap:break-word;
-            overflow:hidden;
-        }
+    .question-item-background div {
+        height: 300px;
+        background-size: cover !important;
+        background-position: 50% 50% !important;
+        background-repeat: no-repeat;
+        border-radius: 5px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+    }
 
     .question-item-text {
         text-align: center;
@@ -63,8 +63,36 @@
     .question-item-text {
         font-family: cursive;
     }
+
+    .panel-languages {
+        margin-top: 10px;
+    }
 </style>
 
+
+<div class="row panel-languages">
+    <div class="pull-right">
+        @using (Html.BeginForm())
+        {
+            if (ViewBag.Languages != null)
+            {
+                <select class="form-control" id="language_select" name="language">
+                    @foreach (var language in ViewBag.Languages)
+                    {
+                        if (Session["SelectedLanguage"] != null && Convert.ToInt64(Session["SelectedLanguage"]) == language.Id)
+                        {
+                            <option value="@language.Id" selected>@language.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@language.Id">@language.Title</option>
+                        }
+                    }
+                </select>
+            }
+        }
+    </div>
+</div>
 <br /><br />
 <div class="row">
     <div class="col-md-12">
@@ -80,7 +108,7 @@
                             </p>
                             <p class="test-start">
                                 <a href="@Url.Action("Test", "Home", new { id = item.Id })">
-                                    <span class="btn btn-primary btn-lg">Start</span>
+                                    <span class="btn btn-primary btn-lg">@ViewBag.StartTest</span>
                                 </a>
                             </p>
                         </div>
@@ -90,3 +118,16 @@
         }
     </div>
 </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('[id=language_select]').on('change', function () {
+                $(this).parent('form').submit();
+            });
+        });
+    </script>
+}

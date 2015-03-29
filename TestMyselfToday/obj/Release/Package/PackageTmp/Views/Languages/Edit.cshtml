@@ -16,7 +16,7 @@
     <div class="panel-edit">
         <div class="panel panel-success">
             <div class="panel-heading">
-                Test Result {Edit}
+                Language {Edit}
             </div>
             <div class="panel-body">
                 @using (Html.BeginForm())
@@ -25,7 +25,7 @@
 
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        
+                        @Html.HiddenFor(model => model.Id)
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -58,4 +58,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
 

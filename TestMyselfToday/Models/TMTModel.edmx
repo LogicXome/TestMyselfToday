@@ -12,6 +12,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CDKey" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CDValue" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
           <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="Language">
@@ -95,6 +96,18 @@
           <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <Association Name="FK_CommonDictionary_Language">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="CommonDictionary" Type="Self.CommonDictionary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommonDictionary">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Question_Test">
           <End Role="Test" Type="Self.Test" Multiplicity="1" />
           <End Role="Question" Type="Self.Question" Multiplicity="*" />
@@ -189,6 +202,10 @@
           <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TestResult" EntityType="Self.TestResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CommonDictionary_Language" Association="Self.FK_CommonDictionary_Language">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="CommonDictionary" EntitySet="CommonDictionary" />
+          </AssociationSet>
           <AssociationSet Name="FK_Question_Test" Association="Self.FK_Question_Test">
             <End Role="Test" EntitySet="Test" />
             <End Role="Question" EntitySet="Question" />
@@ -222,15 +239,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TMTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="CommonDictionary">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CDKey" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CDValue" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SortOrder" Type="Int32" />
-        </EntityType>
         <EntityType Name="Language">
           <Key>
             <PropertyRef Name="Id" />
@@ -239,6 +247,7 @@
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="Tests" Relationship="TMTModel.FK_Test_Language" FromRole="Language" ToRole="Test" />
+          <NavigationProperty Name="CommonDictionaries" Relationship="TMTModel.FK_CommonDictionary_Language" FromRole="Language" ToRole="CommonDictionary" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -278,7 +287,6 @@
           <NavigationProperty Name="Test" Relationship="TMTModel.FK_TestResult_Test" FromRole="TestResult" ToRole="Test" />
         </EntityType>
         <EntityContainer Name="TMTEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CommonDictionaries" EntityType="Self.CommonDictionary" />
           <EntitySet Name="Languages" EntityType="Self.Language" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
           <EntitySet Name="RelatedTests" EntityType="Self.RelatedTest" />
@@ -315,6 +323,11 @@
             <End Role="QuestionOption" EntitySet="QuestionOptions" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="TMTModel.User" />
+          <EntitySet Name="CommonDictionaries" EntityType="TMTModel.CommonDictionary" />
+          <AssociationSet Name="FK_CommonDictionary_Language" Association="TMTModel.FK_CommonDictionary_Language">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="CommonDictionary" EntitySet="CommonDictionaries" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Section">
           <Key>
@@ -449,22 +462,35 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="CommonDictionary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CDKey" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CDValue" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Language" Relationship="TMTModel.FK_CommonDictionary_Language" FromRole="CommonDictionary" ToRole="Language" />
+        </EntityType>
+        <Association Name="FK_CommonDictionary_Language">
+          <End Type="TMTModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="TMTModel.CommonDictionary" Role="CommonDictionary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CommonDictionary">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TMTModelStoreContainer" CdmEntityContainer="TMTEntities">
-          <EntitySetMapping Name="CommonDictionaries">
-            <EntityTypeMapping TypeName="TMTModel.CommonDictionary">
-              <MappingFragment StoreEntitySet="CommonDictionary">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CDKey" ColumnName="CDKey" />
-                <ScalarProperty Name="CDValue" ColumnName="CDValue" />
-                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Languages">
             <EntityTypeMapping TypeName="TMTModel.Language">
               <MappingFragment StoreEntitySet="Language">
@@ -550,6 +576,17 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommonDictionaries">
+            <EntityTypeMapping TypeName="TMTModel.CommonDictionary">
+              <MappingFragment StoreEntitySet="CommonDictionary">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="CDValue" ColumnName="CDValue" />
+                <ScalarProperty Name="CDKey" ColumnName="CDKey" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
