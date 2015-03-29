@@ -131,7 +131,12 @@
         margin-top: 10px;
     }
 
-    .testprocess-ad-panel {
+    .Skyscraper-ad {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .Leaderboard-ad {
         background: none;
         margin-top: 10px;
     }
@@ -231,6 +236,17 @@
     }
 </style>
 
+<div class="row">
+    <div class="Skyscraper-ad">
+        <!-- Test Myself Leaderboard -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-8889029058898784"
+             data-ad-slot="5898306753"></ins>
+
+    </div>
+</div>
+
 <div class="col-md-9">
     <div class="panel testprocess-panel">
         <div class="panel-success">
@@ -322,14 +338,16 @@
 </div>
 <div class="col-md-3">
     <!-- Test Myself Skyscraper -->
-    <div class="panel testprocess-ad-panel">
+    <div class="panel Leaderboard-ad">
         <ins class="adsbygoogle"
              style="display:inline-block;width:300px;height:600px"
              data-ad-client="ca-pub-8889029058898784"
              data-ad-slot="8851773155"></ins>
     </div>
 </div>
-
+@{
+    string testFriendlyUrl = string.Empty;
+}
 <div class="panel othertests-panel">
     <div class="panel-success">
         <div class="panel-body">
@@ -341,6 +359,13 @@
             <div class="row">
                 @foreach (var item in Model.RelatedTests)
                 {
+                    if (!String.IsNullOrEmpty(item.Test.TextForSharing))
+                    {
+                        testFriendlyUrl = item.Test.TextForSharing.Replace(' ', '-');
+                        testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
+                    }
+                    
+                    
                     <div class="col-md-4">
                         <div class="question-panel">
                             <div class="question-item-background" style="background-image: url(@item.Test1.ImagePath);">
@@ -349,7 +374,7 @@
                                         @item.Test1.Title
                                     </p>
                                     <p class="test-start">
-                                        <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
+                                        <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id, ignoreThis = testFriendlyUrl })">
                                             <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
                                         </a>
                                     </p>
@@ -433,13 +458,6 @@
             });
         });
     </script>
-
-
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-
 
 }
 

@@ -20,6 +20,7 @@ namespace TestMyselfToday.Models
         public string ResultDetail { get; set; }
         public string ImagePath { get; set; }
         public long TestId { get; set; }
+        public string TextForSharing { get; set; }
         public int RangeStart { get; set; }
         public int RangeEnd { get; set; }
     

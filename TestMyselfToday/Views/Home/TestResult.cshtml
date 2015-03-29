@@ -1,35 +1,36 @@
 ﻿@model TestMyselfToday.Models.TestResult
 
 @{
-    string testResultTitle = Model.TitleText + "  " + Model.ResultText;
+    string testResultTitle = string.Empty;
+    string testResultUrl = string.Empty;
 
+    testResultTitle = Model.TitleText + "  " + Model.ResultText;
+    
+    if(!String.IsNullOrEmpty(Model.TextForSharing))
+    {
+        testResultUrl = Model.TextForSharing.Replace(' ', '-');
+        testResultUrl = testResultUrl.Trim().ToLower();
+    }
+    
+    testResultUrl = Request.Url + "/" + testResultUrl;
 
     ViewBag.Title = testResultTitle;
 }
 
 <style type="text/css">
     .testresult-panel {
+        background-color: white;
         margin-top: 10px;
     }
 
-    .testresult-ad-panel {
+    .Skyscraper-ad {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .Leaderboard-ad {
         background: none;
         margin-top: 10px;
-    }
-
-    .label-sharing-facebook {
-        padding: 8px;
-        font-size: small;
-    }
-
-    .label-sharing-googleplus {
-        padding: 8px;
-        font-size: small;
-    }
-
-    .label-sharing-twitter {
-        padding: 8px;
-        font-size: small;
     }
 
     /***********************/
@@ -97,159 +98,108 @@
         font-family: cursive;
     }
 
-    /*********************/
-    .sbg-button {
-        display: inline-block;
-        width: 1em;
-        height: 1em;
-        text-align: center;
-        line-height: 0;
-        border-radius: .5em;
-        color: white;
-        cursor: pointer;
+    .result-title {
+        padding-top: 5px;
+        font-size: 20px;
     }
 
-        .sbg-button:hover {
-            color: white;
-        }
-
-    .sbg-button-icon {
-        font-size: .5em;
-        padding: .5em;
+    .result-text {
+        font-size: 30px;
+        font-weight: bold;
     }
 
-    .sbg-button-facebook {
-        background-color: #3b5998;
+    .result-detail {
+        font-size: 15px;
     }
 
-        .sbg-button-facebook .sbg-button-icon {
-            padding-left: .44em;
-        }
-
-    .sbg-button-twitter {
-        background-color: #00aced;
+    .fb-sharing-panel {
+        padding: 10px;
     }
-
-        .sbg-button-twitter .sbg-button-icon {
-            padding-left: .48em;
-        }
-
-    .sbg-button-linkedin {
-        background-color: #007bb6;
-    }
-
-    .sbg-button-google-plus {
-        background-color: #dd4b39;
-    }
-
-    .sbg-button-pinterest {
-        background-color: #cb2027;
-    }
-
-        .sbg-button-pinterest .sbg-button-icon {
-            padding-left: .45em;
-            padding-top: .48em;
-        }
-
-    .sbg-button-email {
-        background-color: #999999;
-    }
-
-        .sbg-button-email .sbg-button-icon {
-            padding-left: .434em;
-            padding-top: .44em;
-        }
 </style>
 
-@{
-    string shareOn = Convert.ToString(Session["ResultSocialShare"]);
-}
+<div class="row">
+    <div class="Skyscraper-ad">
+        <!-- Test Myself Leaderboard -->
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-8889029058898784"
+             data-ad-slot="5898306753"></ins>
+
+    </div>
+</div>
 
 <div class="col-md-9">
     <div class="panel testresult-panel">
         <div class="panel-success">
-            <div class="panel-body">
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="col-md-4">
-                        <h3>
-                            <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@Model.TitleText   @Model.ResultText" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
-                                <span class="label-sharing-facebook label label-primary">@shareOn Facebook</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>
-                            <a class="sbg-button" data-sbg-network="google-plus" data-sbg-url="@Request.Url" data-sbg-width="500" data-sbg-height="505">
-                                <span class="label-sharing-googleplus label label-danger">@shareOn Google+</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>
-                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@Model.TitleText   @Model.ResultText, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="testmyselftoday" data-sbg-width="600" data-sbg-height="258">
-                                <span class="label-sharing-twitter label label-info">@shareOn Twitter</span>
-                            </a>
-                        </h3>
-                    </div>
+            <div class="panel-body fb-sharing-panel">
+                <div class="col-md-offset-4 col-md-1">
+                    <div class="fb-share-button" data-href="@testResultUrl" data-layout="button"></div>
+                </div>
+                <div class="col-md-1">
+                    <div class="g-plus" data-action="share" data-annotation="none" data-href="@testResultUrl"></div>
+                </div>
+                <div class="col-md-1">
+                    <a class="twitter-share-button"
+                       href="https://twitter.com/share" data-text="@testResultTitle" data-count="none" data-hashtags="TestMyselfToday">
+                        Tweet
+                    </a>
                 </div>
             </div>
 
             <div class="panel-body">
-                <div class="col-md-6 testresult-panel-image">
-                    <img src="@Model.ImagePath" alt="Image" class="img-responsive" />
+                <div class="col-md-5 testresult-panel-image">
+                    <img src="@Model.ImagePath" alt="Image" class="img-thumbnail" />
                 </div>
-                <div class="col-md-6 testresult-panel-data">
-                    <h4>@Model.TitleText</h4>
+                <div class="col-md-7 testresult-panel-data">
+                    <p class="result-title">@Model.TitleText</p>
 
-                    <h2>@Model.ResultText</h2>
+                    <p class="result-text">@Model.ResultText</p>
 
-                    <p>
+                    <p class="result-detail">
                         @Model.ResultDetail
                     </p>
                 </div>
             </div>
 
-            <div class="panel-body">
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="col-md-4">
-                        <h3>
-                            <a class="sbg-button" data-sbg-network="facebook" data-sbg-url="@Request.Url" data-sbg-title="@testResultTitle" data-sbg-summary="@Model.ResultDetail" data-sbg-image="@Model.ImagePath" data-sbg-width="600" data-sbg-height="368">
-                                <span class="label-sharing-facebook label label-primary">@shareOn Facebook</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>
-                            <a class="sbg-button" data-sbg-network="google-plus" data-sbg-url="@Request.Url" data-sbg-width="500" data-sbg-height="505">
-                                <span class="label-sharing-googleplus label label-danger">@shareOn Google+</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>
-                            <a class="sbg-button" data-sbg-network="twitter" data-sbg-text="@testResultTitle, @Model.ImagePath" data-sbg-via="" data-sbg-hashtags="testmyselftoday" data-sbg-width="600" data-sbg-height="258">
-                                <span class="label-sharing-twitter label label-info">@shareOn Twitter</span>
-                            </a>
-                        </h3>
-                    </div>
+            <div class="panel-body fb-sharing-panel">
+                <div class="col-md-offset-4 col-md-1">
+                    <div class="fb-share-button" data-href="@testResultUrl" data-layout="button"></div>
+                </div>
+                <div class="col-md-1">
+                    <div class="g-plus" data-action="share" data-annotation="none" data-href="@testResultUrl"></div>
+                </div>
+                <div class="col-md-1">
+                    <a class="twitter-share-button"
+                       href="https://twitter.com/share" data-text="@testResultTitle" data-count="none" data-hashtags="TestMyselfToday">
+                        Tweet
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    @{
+        string testFriendlyUrl = string.Empty;
 
+        if (!String.IsNullOrEmpty(Model.Test.TextForSharing))
+        {
+            testFriendlyUrl = Model.Test.TextForSharing.Replace(' ', '-');
+            testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
+        }      
+    }
     <div class="panel-body">
         <div class="col-md-offset-4 col-md-4">
-            <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId })" class="label-link label label-success col-md-12">@Session["TestAgain"]</a></h3>
+            <h3><a href="@Url.Action("Test", "Home", new { id = Model.TestId, ignoreThis = testFriendlyUrl })" class="label-link label label-success col-md-12">@Session["TestAgain"]</a></h3>
         </div>
     </div>
 </div>
 <div class="col-md-3">
     <!-- Test Myself Skyscraper -->
-    <div class="panel testresult-ad-panel">
-        <ins class="adsbygoogle"
+    <div class="panel Leaderboard-ad">
+        <ins class=" adsbygoogle"
              style="display:inline-block;width:300px;height:600px"
              data-ad-client="ca-pub-8889029058898784"
-             data-ad-slot="8851773155"></ins>
+             data-ad-slot="8851773155">
+        </ins>
     </div>
 </div>
 
@@ -263,146 +213,55 @@
             </div>
             <div class="row">
                 @foreach (var item in Model.Test.RelatedTests)
-                {
-                    <div class="col-md-4">
-                        <div class="question-panel">
-                            <div class="question-item-background" style="background-image: url(@item.Test1.ImagePath);">
-                                <div class="color-overlay">
-                                    <p class="question-item-text">
-                                        @item.Test1.Title
-                                    </p>
-                                    <p class="test-start">
-                                        <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id })">
-                                            <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
-                                        </a>
-                                    </p>
-                                </div>
+                {                    
+                    if (!String.IsNullOrEmpty(item.Test.TextForSharing))
+                    {
+                        testFriendlyUrl = item.Test.TextForSharing.Replace(' ', '-');
+                        testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
+                    }
+                    
+                <div class="col-md-4">
+                    <div class="question-panel">
+                        <div class="question-item-background" style="background-image: url(@item.Test1.ImagePath);">
+                            <div class="color-overlay">
+                                <p class="question-item-text">
+                                    @item.Test1.Title
+                                </p>
+                                <p class="test-start">
+                                    <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id, ignoreThis = testFriendlyUrl })">
+                                        <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>
+                </div>
                 }
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts
-{
-    <script type="text/javascript">
-        function sbg() {
-            var buttons = document.getElementsByClassName('sbg-button')
-
-            for (var i = 0; i < buttons.length; i++) {
-                var button = buttons[i]
-
-                if (button.hasAttribute('data-sbg-isBinded')) { continue }
-                button.setAttribute('data-sbg-isBinded', 'true')
-
-                var network = button.getAttribute('data-sbg-network')
-
-                bindButton(network, button)
-            }
-
-            function bindButton(network, button) {
-                var height = button.getAttribute('data-sbg-height')
-                    , width = button.getAttribute('data-sbg-width')
-                    , top = Math.max(0, (screen.height - height) / 2)
-                    , left = Math.max(0, (screen.width - width) / 2)
-                    , specs =
-                        'height=' + height + ',width=' + width + ',top=' + top + ',left=' + left
-                        + ',status=0,toolbar=0,directories=0,location=0'
-                        + ',menubar=0,resizable=1,scrollbars=1'
-                    , windowName = 'sbg-window-' + Math.random()
-
-                switch (network) {
-                    case 'facebook':
-                        var url = buildUrl('http://www.facebook.com/sharer.php', {
-                            's': 100
-                            , 'p[url]': button.getAttribute('data-sbg-url')
-                            , 'p[title]': button.getAttribute('data-sbg-title')
-                            , 'p[summary]': button.getAttribute('data-sbg-summary')
-                            , 'p[images][0]': button.getAttribute('data-sbg-image')
-                        })
-                        button.onclick = function () {
-                            window.open(url, windowName, specs);
-                        }
-                        break;
-                    case 'twitter':
-                        var url = buildUrl('http://twitter.com/intent/tweet', {
-                            'text': button.getAttribute('data-sbg-text')
-                            , 'via': button.getAttribute('data-sbg-via')
-                            , 'hashtags': button.getAttribute('data-sbg-hashtags')
-                        })
-                        button.onclick = function () {
-                            window.open(url, windowName, specs);
-                        }
-                        break;
-                    case 'linkedin':
-                        var url = buildUrl('http://www.linkedin.com/shareArticle', {
-                            'mini': 'true'
-                            , 'url': button.getAttribute('data-sbg-url')
-                            , 'title': button.getAttribute('data-sbg-title')
-                            , 'source': button.getAttribute('data-sbg-source')
-                            , 'summary': button.getAttribute('data-sbg-summary')
-                        })
-                        button.onclick = function () {
-                            window.open(url, windowName, specs);
-                        }
-                        break;
-                    case 'google-plus':
-                        var url = buildUrl(' https://plus.google.com/share', {
-                            'url': button.getAttribute('data-sbg-url')
-                        })
-                        button.onclick = function () {
-                            window.open(url, windowName, specs);
-                        }
-                        break;
-                    case 'pinterest':
-                        var url = buildUrl('http://www.pinterest.com/pin/create/button/', {
-                            'url': button.getAttribute('data-sbg-url')
-                            , 'media': button.getAttribute('data-sbg-media')
-                            , 'description': button.getAttribute('data-sbg-description')
-                        })
-                        button.onclick = function () {
-                            window.open(url, windowName, specs);
-                        }
-                        break;
-                    case 'email':
-                        var url = buildUrl('mailto:', {
-                            'su': button.getAttribute('data-sbg-subject')
-                            , 'subject': button.getAttribute('data-sbg-subject')
-                            , 'body': button.getAttribute('data-sbg-body')
-                        })
-                        button.setAttribute('href', url)
-                        break;
-
-                }
-            }
-
-            function buildUrl(url, parameters) {
-                var qs = "";
-                for (var key in parameters) {
-                    var value = parameters[key];
-                    if (!value) { continue }
-                    value = value.toString().split('\"').join('"');
-                    qs += key + "=" + encodeURIComponent(value) + "&";
-                }
-                if (qs.length > 0) {
-                    qs = qs.substring(0, qs.length - 1); //chop off last "&"
-                    url = url + "?" + qs;
-                }
-                return url;
-            }
-
-        }
-
-
-        sbg();
-    </script>
-
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+@section Scripts{
+    <div id="fb-root"></div>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1381627395391335&version=v2.3";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- Place this tag after the last share tag. -->
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+    <script>
+        window.twttr = (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {}; if (d.getElementById(id)) return t; js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); t._e = []; t.ready = function (f) { t._e.push(f); }; return t; }(document, "script", "twitter-wjs"));
     </script>
 
 }

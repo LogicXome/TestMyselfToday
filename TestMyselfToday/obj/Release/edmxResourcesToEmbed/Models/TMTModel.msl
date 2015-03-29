@@ -31,39 +31,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="TestResults">
-      <EntityTypeMapping TypeName="TMTModel.TestResult">
-        <MappingFragment StoreEntitySet="TestResult">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TitleText" ColumnName="TitleText" />
-          <ScalarProperty Name="ResultText" ColumnName="ResultText" />
-          <ScalarProperty Name="ResultDetail" ColumnName="ResultDetail" />
-          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-          <ScalarProperty Name="TestId" ColumnName="TestId" />
-          <ScalarProperty Name="RangeStart" ColumnName="RangeStart" />
-          <ScalarProperty Name="RangeEnd" ColumnName="RangeEnd" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Sections">
       <EntityTypeMapping TypeName="TMTModel.Section">
         <MappingFragment StoreEntitySet="Section">
           <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Tests">
-      <EntityTypeMapping TypeName="TMTModel.Test">
-        <MappingFragment StoreEntitySet="Test">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="UsageCount" ColumnName="UsageCount" />
-          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-          <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
-          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
-          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -97,6 +68,37 @@
           <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
           <ScalarProperty Name="CDValue" ColumnName="CDValue" />
           <ScalarProperty Name="CDKey" ColumnName="CDKey" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestResults">
+      <EntityTypeMapping TypeName="TMTModel.TestResult">
+        <MappingFragment StoreEntitySet="TestResult">
+          <ScalarProperty Name="RangeEnd" ColumnName="RangeEnd" />
+          <ScalarProperty Name="RangeStart" ColumnName="RangeStart" />
+          <ScalarProperty Name="TextForSharing" ColumnName="TextForSharing" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="ResultDetail" ColumnName="ResultDetail" />
+          <ScalarProperty Name="ResultText" ColumnName="ResultText" />
+          <ScalarProperty Name="TitleText" ColumnName="TitleText" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="TMTModel.Test">
+        <MappingFragment StoreEntitySet="Test">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UsageCount" ColumnName="UsageCount" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="TextForSharing" ColumnName="TextForSharing" />
+          <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
+          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+          <ScalarProperty Name="SectionId" ColumnName="SectionId" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

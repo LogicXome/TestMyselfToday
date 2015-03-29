@@ -232,10 +232,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="terms.html" />
-    <Content Include="uploads\images\12-03-2015\1.jpg" />
-    <Content Include="uploads\images\12-03-2015\2.jpg" />
-    <Content Include="uploads\images\12-03-2015\3.gif" />
-    <Content Include="uploads\images\12-03-2015\4.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -280,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

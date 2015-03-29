@@ -68,14 +68,24 @@
         margin-top: 10px;
     }
 
-    .tests-ad{
-        text-align:center;
+    .Skyscraper-ad {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .Leaderboard-ad {
+        background: none;
         margin-top: 10px;
     }
 </style>
 
-
+@{
+    string testFriendlyUrl = string.Empty;
+}
 <div class="row panel-languages">
+    <div class="pull-left">
+        <div class="fb-like" data-href="https://www.facebook.com/testmyselftoday?ref=hl" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+    </div>
     <div class="pull-right">
         @using (Html.BeginForm())
         {
@@ -99,7 +109,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="tests-ad">
+    <div class="Skyscraper-ad">
         <!-- Test Myself Leaderboard -->
         <ins class="adsbygoogle"
              style="display:inline-block;width:728px;height:90px"
@@ -110,27 +120,40 @@
 </div>
 <br /><br />
 <div class="row">
-    <div class="col-md-12">
-        <div class="col-md-12">
-            @foreach (var item in Model)
+    <div class="col-md-9">
+        @foreach (var item in Model)
+        {
+            if (!String.IsNullOrEmpty(item.TextForSharing))
             {
-                <div class="col-md-4">
-                    <div class="question-panel">
-                        <div class="question-item-background" style="background-image: url(@item.ImagePath);">
-                            <div class="color-overlay">
-                                <p class="question-item-text">
-                                    @item.Title
-                                </p>
-                                <p class="test-start">
-                                    <a href="@Url.Action("Test", "Home", new { id = item.Id })">
-                                        <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
-                                    </a>
-                                </p>
-                            </div>
+                testFriendlyUrl = item.TextForSharing.Replace(' ', '-');
+                testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
+            }
+
+            <div class="col-md-6">
+                <div class="question-panel">
+                    <div class="question-item-background" style="background-image: url(@item.ImagePath);">
+                        <div class="color-overlay">
+                            <p class="question-item-text">
+                                @item.Title
+                            </p>
+                            <p class="test-start">
+                                <a href="@Url.Action("Test", "Home", new { id = item.Id, ignoreThis = testFriendlyUrl })">
+                                    <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
+        }
+    </div>
+    <div class="col-md-3">
+        <!-- Test Myself Skyscraper -->
+        <div class="panel Leaderboard-ad">
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:300px;height:600px"
+                 data-ad-client="ca-pub-8889029058898784"
+                 data-ad-slot="8851773155"></ins>
         </div>
     </div>
 </div>
@@ -144,11 +167,5 @@
                 $(this).parent('form').submit();
             });
         });
-    </script>
-
-
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 }

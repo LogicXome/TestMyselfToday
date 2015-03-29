@@ -25,8 +25,6 @@ namespace TestMyselfToday.Models.Code
                 httpContext.Session["TestOther"] = "Other Tests";
                 httpContext.Session["TestStart"] = "Start";
                 httpContext.Session["TestAgain"] = "Test Again";
-
-                httpContext.Session["ResultSocialShare"] = "Share on";
             }
 
             return true;

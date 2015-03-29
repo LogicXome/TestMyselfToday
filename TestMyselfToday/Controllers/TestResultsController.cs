@@ -35,7 +35,7 @@ namespace TestMyselfToday.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TitleText,ResultText,ResultDetail,ImagePath,TestId,RangeStart,RangeEnd")] TestResult testResult)
+        public ActionResult Create([Bind(Include = "Id,TitleText,ResultText,ResultDetail,ImagePath,TestId,TextForSharing,RangeStart,RangeEnd")] TestResult testResult)
         {
             if (ModelState.IsValid)
             {
@@ -69,7 +69,7 @@ namespace TestMyselfToday.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TitleText,ResultText,ResultDetail,ImagePath,TestId,RangeStart,RangeEnd")] TestResult testResult)
+        public ActionResult Edit([Bind(Include = "Id,TitleText,ResultText,ResultDetail,ImagePath,TestId,TextForSharing,RangeStart,RangeEnd")] TestResult testResult)
         {
             if (ModelState.IsValid)
             {

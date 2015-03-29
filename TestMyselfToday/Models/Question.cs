@@ -25,7 +25,7 @@ namespace TestMyselfToday.Models
         public string ImagePath { get; set; }
         public Nullable<int> SortOrder { get; set; }
     
-        public virtual Test Test { get; set; }
         public virtual ICollection<QuestionOption> QuestionOptions { get; set; }
+        public virtual Test Test { get; set; }
     }
 }

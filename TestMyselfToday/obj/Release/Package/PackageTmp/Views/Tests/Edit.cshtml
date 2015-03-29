@@ -87,6 +87,15 @@
 
                     <div class="form-group">
                         <label class="control-label col-md-2">
+                            For Sharing
+                        </label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.TextForSharing, new { @class = "test-sharing form-control", @Pattern = "[a-zA-Z0-9 ]+" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
                             Image
                         </label>
                         <div class="col-md-10">
@@ -421,6 +430,12 @@
             if (testTitle.val() == "")
             {
                 testTitle.parent().append(msgRequiredField);
+            }
+
+            var testTextForSharing = $(testPanel).find('input[name=TextForSharing]');
+
+            if (testTextForSharing.val() == "") {
+                testTextForSharing.parent().append(msgRequiredField);
             }
 
             var testImageUrl = $(testPanel).find('input[name=ImagePath]');

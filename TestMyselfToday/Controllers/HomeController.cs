@@ -102,13 +102,6 @@ namespace TestMyselfToday.Controllers
                 {
                     Session["TestAgain"] = cd.CDValue;
                 }
-
-                cd = lstCommonDictionary.FirstOrDefault(x => x.CDKey.Equals("Result-Social-Share", StringComparison.OrdinalIgnoreCase));
-
-                if (cd != null)
-                {
-                    Session["ResultSocialShare"] = cd.CDValue;
-                }
             }
             else if (Session["SelectedLanguage"] == null)
             {
@@ -202,6 +195,7 @@ namespace TestMyselfToday.Controllers
 
             TestResult testResult = null;
             long testResultId = 0;
+            string friendlyUrl = string.Empty;
 
             if (!String.IsNullOrEmpty(form["QuestionCount"]))
             {
@@ -245,14 +239,30 @@ namespace TestMyselfToday.Controllers
                 if (testResult != null)
                 {
                     testResultId = testResult.Id;
+
+                    if (String.IsNullOrEmpty(testResult.TextForSharing))
+                    {
+                        friendlyUrl = testResult.TitleText + "  " + testResult.ResultText;
+                    }
+                    else
+                    {
+                        friendlyUrl = testResult.TextForSharing;
+                    }
+
+                    if (!String.IsNullOrEmpty(friendlyUrl))
+                    {
+                        friendlyUrl = friendlyUrl.Replace(' ', '-');
+                        friendlyUrl = friendlyUrl.Trim().ToLower();
+                    }
                 }
                 else
                 {
                     return RedirectToAction("Alert", "Home", new { id = 1 });
                 }
-
+            
             }
-            return RedirectToAction("TestResult", "Home", new { id = testResultId });
+
+            return RedirectToAction("TestResult", "Home", new { id = testResultId, ignoreThis = friendlyUrl });
         }
 
         [ForUsers]

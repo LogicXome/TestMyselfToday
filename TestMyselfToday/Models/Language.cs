@@ -16,15 +16,15 @@ namespace TestMyselfToday.Models
     {
         public Language()
         {
-            this.Tests = new HashSet<Test>();
             this.CommonDictionaries = new HashSet<CommonDictionary>();
+            this.Tests = new HashSet<Test>();
         }
     
         public long Id { get; set; }
         public string Title { get; set; }
         public Nullable<int> SortOrder { get; set; }
     
-        public virtual ICollection<Test> Tests { get; set; }
         public virtual ICollection<CommonDictionary> CommonDictionaries { get; set; }
+        public virtual ICollection<Test> Tests { get; set; }
     }
 }

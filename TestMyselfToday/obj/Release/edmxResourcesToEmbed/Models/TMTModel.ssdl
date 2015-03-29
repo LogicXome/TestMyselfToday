@@ -66,6 +66,7 @@
     <Property Name="SectionId" Type="bigint" />
     <Property Name="LanguageId" Type="bigint" />
     <Property Name="DateAndTime" Type="datetime" />
+    <Property Name="TextForSharing" Type="nvarchar" MaxLength="500" />
     <Property Name="SortOrder" Type="int" />
     <Property Name="UsageCount" Type="int" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -80,6 +81,7 @@
     <Property Name="ResultDetail" Type="nvarchar" MaxLength="2000" />
     <Property Name="ImagePath" Type="nvarchar" MaxLength="1000" />
     <Property Name="TestId" Type="bigint" Nullable="false" />
+    <Property Name="TextForSharing" Type="nvarchar" MaxLength="500" />
     <Property Name="RangeStart" Type="int" Nullable="false" />
     <Property Name="RangeEnd" Type="int" Nullable="false" />
   </EntityType>

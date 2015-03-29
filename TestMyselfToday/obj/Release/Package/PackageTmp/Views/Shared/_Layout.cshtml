@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="article:author" content="https://www.facebook.com/testmyselftoday" />
+    <meta property="article:publisher" content="https://www.facebook.com/rizwanmahfooz.pu" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+   
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         @{Html.RenderAction("_NavBar", "Home");}
     </div>
@@ -27,6 +32,9 @@
                 &nbsp;&nbsp;
                 <a href="https://www.facebook.com/testmyselftoday?ref=hl" target="_blank">@Session["SocialFacebook"]</a>
             </p>
+            <p class="pull-left">
+                <div class="fb-like" data-href="https://www.facebook.com/testmyselftoday?ref=hl" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+            </p>
         </footer>
     </div>
 
@@ -34,5 +42,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
 </body>
 </html>

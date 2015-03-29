@@ -28,6 +28,7 @@ namespace TestMyselfToday.Models
         public Nullable<long> SectionId { get; set; }
         public Nullable<long> LanguageId { get; set; }
         public Nullable<System.DateTime> DateAndTime { get; set; }
+        public string TextForSharing { get; set; }
         public Nullable<int> SortOrder { get; set; }
         public Nullable<int> UsageCount { get; set; }
         public bool IsActive { get; set; }
