@@ -1,4 +1,7 @@
-﻿@model IEnumerable<TestMyselfToday.Models.Test>
+﻿@model PagedList.IPagedList<TestMyselfToday.Models.Test>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Home";
@@ -52,12 +55,13 @@
     }
 
     .color-overlay {
-        background-image: url(images/overlay-pattern2.png);
+        background-image: url(/images/overlay-pattern2.png);
         left: 0px;
         top: 0px;
     }
 
     .question-item-background {
+        background-size: cover;
     }
 
     .question-item-text {
@@ -77,16 +81,34 @@
         background: none;
         margin-top: 10px;
     }
+
+    .section-span{
+        padding: 6px;
+        font-size:15px;
+        font-weight:600;
+    }
 </style>
 
 @{
     string testFriendlyUrl = string.Empty;
 }
 <div class="row panel-languages">
-    <div class="pull-left">
-        <div class="fb-like" data-href="https://www.facebook.com/testmyselftoday?ref=hl" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+    <div class="col-md-2 pull-left">
+        <div class="fb-like" data-href="https://www.facebook.com/testmyselftoday?ref=hl" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
     </div>
-    <div class="pull-right">
+    <div class="col-md-6 pull-left">
+        @if (ViewBag.Sections != null)
+        {
+            var lstSection = ViewBag.Sections;
+            foreach (var item in lstSection)
+            {
+                string title = item.Title;
+
+                <span class="section-span">@Html.ActionLink(title, "Index", "Home", new { search = item.Id }, null)</span>
+            }
+        }
+    </div>
+    <div class="col-md-4 pull-right">
         @using (Html.BeginForm())
         {
             if (ViewBag.Languages != null)
@@ -146,6 +168,11 @@
                 </div>
             </div>
         }
+        <div class="col-md-offset-4 col-md-4">
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { search = ViewBag.Search, page }))
+        </div>
+        
     </div>
     <div class="col-md-3">
         <!-- Test Myself Skyscraper -->
@@ -158,6 +185,11 @@
     </div>
 </div>
 
+
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+
+
+
 @section Scripts
 {
     <script type="text/javascript">
@@ -167,5 +199,23 @@
                 $(this).parent('form').submit();
             });
         });
+    </script>
+
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1381627395391335&version=v2.3";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- Place this tag after the last share tag. -->
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
     </script>
 }

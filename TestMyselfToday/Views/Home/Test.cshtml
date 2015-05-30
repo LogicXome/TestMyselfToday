@@ -229,10 +229,15 @@
     }
 
     .question-item-background {
+        background-size:cover;
     }
 
     .question-item-text {
         font-family: cursive;
+    }
+
+    #progressWizard ul{
+        overflow: auto;
     }
 </style>
 
@@ -257,56 +262,56 @@
 
                     <ul class="nav nav-pills nav-justified">
                         @foreach (var question in lstQuestion)
-                            {
-                                string stepTemp = step + stepId;
+                        {
+                            string stepTemp = step + stepId;
 
                             <li><a href="#@stepTemp" data-toggle="tab"><span class="question-no">Q: @stepId :</span></a></li>
-                                stepId++;
-                            }
+                            stepId++;
+                        }
                     </ul>
 
                     @{
-                            stepId = 1;
+                        stepId = 1;
                     }
 
                     <form class="tab-content" action="@Url.Action("Test", "Home")" method="post">
 
                         @foreach (var question in lstQuestion)
-                            {
-                                string stepTemp = step + stepId;
+                        {
+                            string stepTemp = step + stepId;
 
                             <div class="tab-pane" id="@stepTemp">
 
                                 <h2 class="question-title">@question.Statement</h2>
                                 @if (!String.IsNullOrEmpty(question.ImagePath))
-                                    {
+                                {
                                     <img src="@question.ImagePath" class="img-rounded question-img" />
-                                    }
+                                }
 
                                 @{
-                                    var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);
-                                    var counter = 1;
+                                var lstQuestionOption = question.QuestionOptions.OrderBy(o => o.SortOrder);
+                                var counter = 1;
                                 }
 
                                 <div class="question-options">
                                     @foreach (var option in lstQuestionOption)
-                                        {
+                                    {
                                         <div class="radio">
                                             <input type="radio" class="option-rb" name="o-rb-s-@stepId" id="o-rb-s-@stepId-c-@counter" value="@option.Score">
                                             <span class="option-text">
                                                 @option.OptionText
                                             </span>
                                             @if (!String.IsNullOrEmpty(option.ImagePath))
-                                                {
+                                            {
                                                 <img src="@option.ImagePath" class="img-thumbnail questionoption-img" />
-                                                }
+                                            }
                                         </div>
-                                                counter++;
-                                        }
+                                            counter++;
+                                    }
                                 </div>
                             </div>
-                                        stepId++;
-                            }
+                                    stepId++;
+                        }
 
 
 
@@ -323,7 +328,7 @@
                         </ul>
 
                         @{
-                                var questionCount = stepId - 1;
+                            var questionCount = stepId - 1;
                         }
 
                         <input type="submit" id="btnSubmit" value="Submit" hidden />
@@ -356,34 +361,38 @@
                     <span class="label-link label label-success">@Session["TestOther"]</span>
                 </h3>
             </div>
-            <div class="row">
-                @foreach (var item in Model.RelatedTests)
-                {
-                    if (!String.IsNullOrEmpty(item.Test.TextForSharing))
+            @if (ViewBag.OtherTests != null)
+            {
+                var lstOtherTests = ViewBag.OtherTests;
+
+                <div class="row">
+                    @foreach (var item in lstOtherTests)
                     {
-                        testFriendlyUrl = item.Test.TextForSharing.Replace(' ', '-');
-                        testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
-                    }
-                    
-                    
-                    <div class="col-md-4">
-                        <div class="question-panel">
-                            <div class="question-item-background" style="background-image: url(@item.Test1.ImagePath);">
-                                <div class="color-overlay">
-                                    <p class="question-item-text">
-                                        @item.Test1.Title
-                                    </p>
-                                    <p class="test-start">
-                                        <a href="@Url.Action("Test", "Home", new { id = item.Test1.Id, ignoreThis = testFriendlyUrl })">
-                                            <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
-                                        </a>
-                                    </p>
+                        if (!String.IsNullOrEmpty(item.TextForSharing))
+                        {
+                            testFriendlyUrl = item.TextForSharing.Replace(' ', '-');
+                            testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
+                        }
+
+                        <div class="col-md-4">
+                            <div class="question-panel">
+                                <div class="question-item-background" style="background-image: url(@item.ImagePath);">
+                                    <div class="color-overlay">
+                                        <p class="question-item-text">
+                                            @item.Title
+                                        </p>
+                                        <p class="test-start">
+                                            <a href="@Url.Action("Test", "Home", new { id = item.Id, ignoreThis = testFriendlyUrl })">
+                                                <span class="btn btn-primary btn-lg">@Session["TestStart"]</span>
+                                            </a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>

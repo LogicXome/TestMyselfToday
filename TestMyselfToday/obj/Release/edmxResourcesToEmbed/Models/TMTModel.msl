@@ -31,15 +31,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Sections">
-      <EntityTypeMapping TypeName="TMTModel.Section">
-        <MappingFragment StoreEntitySet="Section">
-          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="QuestionOptions">
       <EntityTypeMapping TypeName="TMTModel.QuestionOption">
         <MappingFragment StoreEntitySet="QuestionOption">
@@ -98,6 +89,16 @@
           <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
           <ScalarProperty Name="SectionId" ColumnName="SectionId" />
           <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sections">
+      <EntityTypeMapping TypeName="TMTModel.Section">
+        <MappingFragment StoreEntitySet="Section">
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

@@ -28,3 +28,7 @@ C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\bin\Newtonsoft.Json
 C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\obj\Release\TestMyselfToday.dll
 C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\obj\Release\TestMyselfToday.pdb
 C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\obj\Release\TestMyselfToday.csprojResolveAssemblyReference.cache
+C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\bin\PagedList.dll
+C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\bin\PagedList.Mvc.dll
+C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\bin\PagedList.xml
+C:\LogicXome\TestMyselfToday\TestMyselfToday\TestMyselfToday\bin\PagedList.Mvc.xml

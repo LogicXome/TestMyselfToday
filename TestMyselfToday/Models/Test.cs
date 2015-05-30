@@ -37,7 +37,7 @@ namespace TestMyselfToday.Models
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<RelatedTest> RelatedTests { get; set; }
         public virtual ICollection<RelatedTest> RelatedTests1 { get; set; }
-        public virtual Section Section { get; set; }
         public virtual ICollection<TestResult> TestResults { get; set; }
+        public virtual Section Section { get; set; }
     }
 }

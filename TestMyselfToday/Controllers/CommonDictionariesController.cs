@@ -75,6 +75,7 @@ namespace TestMyselfToday.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Title", commonDictionary.LanguageId);
             return View(commonDictionary);
         }
@@ -92,6 +93,7 @@ namespace TestMyselfToday.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Title", commonDictionary.LanguageId);
             return View(commonDictionary);
         }

@@ -18,6 +18,7 @@ namespace TestMyselfToday.Models
         {
             this.CommonDictionaries = new HashSet<CommonDictionary>();
             this.Tests = new HashSet<Test>();
+            this.Sections = new HashSet<Section>();
         }
     
         public long Id { get; set; }
@@ -26,5 +27,6 @@ namespace TestMyselfToday.Models
     
         public virtual ICollection<CommonDictionary> CommonDictionaries { get; set; }
         public virtual ICollection<Test> Tests { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
     }
 }

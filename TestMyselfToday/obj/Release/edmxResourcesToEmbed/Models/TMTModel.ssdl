@@ -54,6 +54,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="LanguageId" Type="bigint" />
     <Property Name="SortOrder" Type="int" />
   </EntityType>
   <EntityType Name="Test">
@@ -153,6 +154,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Section_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="Section" Type="Self.Section" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Section">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Test_Language">
     <End Role="Language" Type="Self.Language" Multiplicity="0..1" />
     <End Role="Test" Type="Self.Test" Multiplicity="*" />
@@ -218,6 +231,10 @@
     <AssociationSet Name="FK_RelatedTest_TestR" Association="Self.FK_RelatedTest_TestR">
       <End Role="Test" EntitySet="Test" />
       <End Role="RelatedTest" EntitySet="RelatedTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Section_Language" Association="Self.FK_Section_Language">
+      <End Role="Language" EntitySet="Language" />
+      <End Role="Section" EntitySet="Section" />
     </AssociationSet>
     <AssociationSet Name="FK_Test_Language" Association="Self.FK_Test_Language">
       <End Role="Language" EntitySet="Language" />

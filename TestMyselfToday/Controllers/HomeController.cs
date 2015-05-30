@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,13 +15,16 @@ namespace TestMyselfToday.Controllers
         TMTEntities db = new TMTEntities();
 
         [ForUsers]
-        public ActionResult Index(string search)
+        public ActionResult Index(string search, int page=1, int pageSize = 4)
         {
             List<Test> lstTest = null;
+
+            ViewBag.Search = search;
 
             var lstLanguage = db.Languages.OrderBy(o => o.SortOrder).ToList();
 
             ViewBag.Languages = lstLanguage;
+
 
             long languageId = 0;
 
@@ -130,11 +134,31 @@ namespace TestMyselfToday.Controllers
                     }
                 default:
                     {
-                        lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId).OrderBy(o => o.SortOrder).ToList();
+                        if (String.IsNullOrEmpty(search))
+                        {
+                            lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId).OrderBy(o => o.SortOrder).ToList();
+                        }
+                        else
+                        {
+                            long tempSectionId = 0;
+                            if (Int64.TryParse(search, out tempSectionId))
+                            {
+                                lstTest = db.Tests.Where(x => x.IsActive && x.LanguageId == languageId && x.SectionId == tempSectionId).OrderBy(o => o.SortOrder).ToList();
+                            }
+                        }
                         break;
                     }
             }
-            return View(lstTest);
+
+
+            var lstSection = db.Sections.Where(x => x.LanguageId == languageId && x.SortOrder > 0).OrderBy(o => o.SortOrder).ToList();
+
+            ViewBag.Sections = lstSection;
+
+
+            //Pagination
+
+            return View(lstTest.ToPagedList(page, pageSize));
         }
 
         [ForAdminsOnly]
@@ -183,6 +207,11 @@ namespace TestMyselfToday.Controllers
             {
                 return HttpNotFound();
             }
+
+            var tests = db.Tests.Where(x => x.LanguageId == test.LanguageId && x.IsActive == true && x.Id != test.Id).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+
+            ViewBag.OtherTests = tests;
+
             return View(test);
         }
 
@@ -285,12 +314,17 @@ namespace TestMyselfToday.Controllers
             {
                 return RedirectToAction("Test", "Home", new { id = testResult.TestId });
             }
+
+            var tests = db.Tests.Where(x => x.LanguageId == testResult.Test.LanguageId && x.IsActive == true && x.Id != testResult.TestId).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+
+            ViewBag.OtherTests = tests;
+
             return View(testResult);
         }
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
+        [ForUsers]
         public ActionResult LoginForAdmin()
         {
             return View();
