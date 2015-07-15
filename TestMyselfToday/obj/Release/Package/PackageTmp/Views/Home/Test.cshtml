@@ -219,7 +219,8 @@
         height: 240px;
         color: white;
         font-weight: bold;
-        font-size: xx-large;
+        font-size: xx-large;        
+        text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
     }
 
     .color-overlay {
@@ -464,6 +465,8 @@
                 $(this).addClass('option-selected');
 
                 $(this).siblings().removeClass('option-selected');
+
+                $('#next').trigger('click');
             });
         });
     </script>

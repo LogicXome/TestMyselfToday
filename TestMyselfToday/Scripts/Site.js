@@ -4,7 +4,7 @@
 };
 
 $(document).on('ready', function () {
-
+    
     $(document).on('focus', '[id^=form-field]', function () {
         $(this).parent().removeClass("has-error");
         $(this).parent().find('.help-inline').hide();
