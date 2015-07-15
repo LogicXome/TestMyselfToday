@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.UI;
 using TestMyselfToday.Models;
@@ -369,7 +371,67 @@ namespace TestMyselfToday.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult SendEmail(string fullname, string email, string comment, bool isSuggestion)
+        {
+            string message = string.Empty;
+            try
+            {
+                string body = WebUtility.UrlDecode(comment);
+                string fromEmail = System.Configuration.ConfigurationManager.AppSettings["FromEmail"].ToString();
+                string toEmail = System.Configuration.ConfigurationManager.AppSettings["ToEmail"].ToString();
+                string ccEmail = System.Configuration.ConfigurationManager.AppSettings["CCEmail"].ToString();
+                string subject1 = System.Configuration.ConfigurationManager.AppSettings["SuggestionSubject"].ToString();
+                string subject2 = System.Configuration.ConfigurationManager.AppSettings["ContactSubject"].ToString();
+                string smtpServer = System.Configuration.ConfigurationManager.AppSettings["SMTPServer"].ToString();
+                string username = System.Configuration.ConfigurationManager.AppSettings["EmailUserName"].ToString();
+                string password = System.Configuration.ConfigurationManager.AppSettings["EmailPassword"].ToString();
 
+                System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient(smtpServer);
+                smtpClient.Credentials = new System.Net.NetworkCredential(username, password);
+                smtpClient.EnableSsl = true;
+
+                using (MailMessage mailMsg = new MailMessage())
+                {
+                    mailMsg.From = new MailAddress(fromEmail);
+
+                    mailMsg.To.Add(new MailAddress(toEmail));
+
+                    if (!String.IsNullOrEmpty(ccEmail))
+                    {
+                        mailMsg.CC.Add(new MailAddress(ccEmail));
+                    }
+
+                    if(isSuggestion)
+                    {
+                        mailMsg.Subject = subject1;
+                    }
+                    else
+                    {
+                        mailMsg.Subject = subject2;
+                    }
+                   
+                    string fromDetails = fullname + "<br/>" + email + "<br/>";
+
+                    body = body + "<br/><br/><br/>" + fromDetails;
+
+                    mailMsg.Body = body;
+                    mailMsg.IsBodyHtml = true;
+                    mailMsg.BodyEncoding = Encoding.UTF8;
+
+
+                    smtpClient.Send(mailMsg);
+                    return Json("success", JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+
+            }
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
         //Partial Views
         public PartialViewResult _NavBar()
         {

@@ -7,6 +7,7 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CDKey" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="CDValue" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="LanguageId" Type="bigint" Nullable="false" />
     <Property Name="SortOrder" Type="int" />
   </EntityType>
   <EntityType Name="Language">
@@ -53,6 +54,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="LanguageId" Type="bigint" />
     <Property Name="SortOrder" Type="int" />
   </EntityType>
   <EntityType Name="Test">
@@ -65,6 +67,7 @@
     <Property Name="SectionId" Type="bigint" />
     <Property Name="LanguageId" Type="bigint" />
     <Property Name="DateAndTime" Type="datetime" />
+    <Property Name="TextForSharing" Type="nvarchar" MaxLength="500" />
     <Property Name="SortOrder" Type="int" />
     <Property Name="UsageCount" Type="int" />
     <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -79,6 +82,7 @@
     <Property Name="ResultDetail" Type="nvarchar" MaxLength="2000" />
     <Property Name="ImagePath" Type="nvarchar" MaxLength="1000" />
     <Property Name="TestId" Type="bigint" Nullable="false" />
+    <Property Name="TextForSharing" Type="nvarchar" MaxLength="500" />
     <Property Name="RangeStart" Type="int" Nullable="false" />
     <Property Name="RangeEnd" Type="int" Nullable="false" />
   </EntityType>
@@ -90,6 +94,18 @@
     <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
   </EntityType>
+  <Association Name="FK_CommonDictionary_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="1" />
+    <End Role="CommonDictionary" Type="Self.CommonDictionary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommonDictionary">
+        <PropertyRef Name="LanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Question_Test">
     <End Role="Test" Type="Self.Test" Multiplicity="1" />
     <End Role="Question" Type="Self.Question" Multiplicity="*" />
@@ -135,6 +151,18 @@
       </Principal>
       <Dependent Role="RelatedTest">
         <PropertyRef Name="RelatedTestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Section_Language">
+    <End Role="Language" Type="Self.Language" Multiplicity="0..1" />
+    <End Role="Section" Type="Self.Section" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Section">
+        <PropertyRef Name="LanguageId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -184,6 +212,10 @@
     <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TestResult" EntityType="Self.TestResult" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CommonDictionary_Language" Association="Self.FK_CommonDictionary_Language">
+      <End Role="Language" EntitySet="Language" />
+      <End Role="CommonDictionary" EntitySet="CommonDictionary" />
+    </AssociationSet>
     <AssociationSet Name="FK_Question_Test" Association="Self.FK_Question_Test">
       <End Role="Test" EntitySet="Test" />
       <End Role="Question" EntitySet="Question" />
@@ -199,6 +231,10 @@
     <AssociationSet Name="FK_RelatedTest_TestR" Association="Self.FK_RelatedTest_TestR">
       <End Role="Test" EntitySet="Test" />
       <End Role="RelatedTest" EntitySet="RelatedTest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Section_Language" Association="Self.FK_Section_Language">
+      <End Role="Language" EntitySet="Language" />
+      <End Role="Section" EntitySet="Section" />
     </AssociationSet>
     <AssociationSet Name="FK_Test_Language" Association="Self.FK_Test_Language">
       <End Role="Language" EntitySet="Language" />

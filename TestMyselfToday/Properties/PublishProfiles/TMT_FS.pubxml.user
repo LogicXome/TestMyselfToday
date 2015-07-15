@@ -27,6 +27,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>03/20/2015 20:18:21</publishTime>
     </File>
+    <File Include="bin/PagedList.dll">
+      <publishTime>05/31/2015 00:40:56</publishTime>
+    </File>
+    <File Include="bin/PagedList.Mvc.dll">
+      <publishTime>05/31/2015 00:40:56</publishTime>
+    </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>03/20/2015 21:01:20</publishTime>
     </File>
@@ -49,7 +55,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2015 21:01:20</publishTime>
     </File>
     <File Include="bin/TestMyselfToday.dll">
-      <publishTime>04/05/2015 15:57:59</publishTime>
+      <publishTime>06/03/2015 20:48:41</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>03/20/2015 20:18:17</publishTime>
@@ -74,6 +80,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/pace.css">
       <publishTime>03/29/2015 13:50:16</publishTime>
+    </File>
+    <File Include="Content/PagedList.css">
+      <publishTime>05/31/2015 00:40:59</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>03/21/2015 18:06:06</publishTime>
@@ -106,7 +115,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2015 15:36:57</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>03/20/2015 21:01:27</publishTime>
+      <publishTime>05/31/2015 00:40:59</publishTime>
     </File>
     <File Include="privacy.html">
       <publishTime>03/29/2015 02:15:44</publishTime>
@@ -157,7 +166,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/20/2015 20:18:18</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>01/04/2015 22:59:28</publishTime>
+      <publishTime>05/31/2015 00:33:30</publishTime>
     </File>
     <File Include="terms.html">
       <publishTime>03/29/2015 02:25:09</publishTime>
@@ -286,7 +295,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/31/2015 23:54:50</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>04/02/2015 00:02:41</publishTime>
+      <publishTime>06/03/2015 21:04:44</publishTime>
     </File>
     <File Include="Views/Home/LoginForAdmin.cshtml">
       <publishTime>03/28/2015 02:51:33</publishTime>
@@ -388,7 +397,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/29/2015 01:31:07</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/29/2015 04:17:52</publishTime>
+      <publishTime>05/31/2015 01:42:22</publishTime>
     </File>
   </ItemGroup>
 </Project>

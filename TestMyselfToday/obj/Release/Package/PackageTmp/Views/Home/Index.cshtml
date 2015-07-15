@@ -1,4 +1,7 @@
-﻿@model IEnumerable<TestMyselfToday.Models.Test>
+﻿@model PagedList.IPagedList<TestMyselfToday.Models.Test>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Home";
@@ -53,12 +56,14 @@
 
     .color-overlay {
         background-image: url(/images/overlay-pattern2.png);
+        opacity: 0.85;
         left: 0px;
         top: 0px;
     }
 
     .question-item-background {
         background-size: cover;
+        background-position: center;
     }
 
     .question-item-text {
@@ -79,10 +84,10 @@
         margin-top: 10px;
     }
 
-    .section-span{
+    .section-span {
         padding: 6px;
-        font-size:15px;
-        font-weight:600;
+        font-size: 15px;
+        font-weight: 600;
     }
 </style>
 
@@ -165,6 +170,11 @@
                 </div>
             </div>
         }
+        <div class="col-md-offset-4 col-md-4">
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { search = ViewBag.Search, page }))
+        </div>
+
     </div>
     <div class="col-md-3">
         <!-- Test Myself Skyscraper -->
@@ -176,6 +186,11 @@
         </div>
     </div>
 </div>
+
+
+@*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+
+
 
 @section Scripts
 {

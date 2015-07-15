@@ -8,3 +8,5 @@
 /// <reference path="npm.js" />
 /// <reference path="pace.js" />
 /// <reference path="respond.js" />
+/// <reference path="bootbox.js" />
+/// <reference path="site.js" />

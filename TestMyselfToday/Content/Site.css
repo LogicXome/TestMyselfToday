@@ -10,9 +10,29 @@
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.navbar-brand span {
+    font-size: 15px;
+}
+
+ul.nav.navbar-nav li {
+    border: 1px solid;
+}
+
+
+#emailSendingStatus {
+    color: #4f7fc1;
+    font-size: medium;
+    text-align: center;
+}
+
+body .emailSend {
+    margin: 3px;
+}
+
+body .emailClose {
+    margin: 3px;
+}
+
+body #message-form-alert{
+    display:none;
 }
