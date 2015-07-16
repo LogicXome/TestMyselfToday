@@ -6,7 +6,7 @@
 
     <meta property="article:author" content="https://www.facebook.com/testmyselftoday" />
     <meta property="article:publisher" content="http://rizwanmahfooz.com/" />
-    <title>@ViewBag.Title</title>
+    <title>Test myself today</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -24,9 +24,13 @@
             <p class="col-md-3">&copy; @DateTime.Now.Year - @Session["TestMyselfToday"]</p>
 
             <p class="col-md-9">
-                <a href="~/terms.html" target="_blank">@Session["TermsConditions"]</a>
+                <a class="openLink" id="terms">
+                    @Session["TermsConditions"]
+                </a>
                 &nbsp;&nbsp;
-                <a href="~/privacy.html" target="_blank">@Session["Privacy"]</a>
+                <a class="openLink" id="privacy">
+                    @Session["Privacy"]
+                </a>
                 &nbsp;&nbsp;
                 <a href="https://www.facebook.com/testmyselftoday?ref=hl" target="_blank">@Session["SocialFacebook"]</a>
                 &nbsp;&nbsp;
@@ -42,24 +46,6 @@
                 <div class="fb-like" data-href="https://www.facebook.com/testmyselftoday?ref=hl" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
             </p>
         </footer>
-    </div>
-
-    <!-- Modal Suggest Topic -->
-    <div class="modal fade" id="modalSuggestTopic" tabindex="-1" role="dialog" aria-labelledby="SuggestTopic">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Suggest Topic</h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     @Scripts.Render("~/bundles/pace")

@@ -42,76 +42,100 @@ $(document).on('ready', function () {
             '<span class="help-inline"></span>' +
         '</div></div></div>',
             buttons: {
-            success: {
-            label: "Send Email",
+                success: {
+                    label: "Send Email",
 
-            className: "btn btn-success pull-right emailSend",
-        callback: function () {
-            var fullname = $("#form-field-fullname");
-            var email = $("#form-field-email");
-            var comment = $("#form-field-comment");
+                    className: "btn btn-success pull-right emailSend",
+                    callback: function () {
+                        var fullname = $("#form-field-fullname");
+                        var email = $("#form-field-email");
+                        var comment = $("#form-field-comment");
 
-            var msg1 = 'Please provide value for the required field';
-            var msg2 = 'Please provide valid email address';
+                        var msg1 = 'Please provide value for the required field';
+                        var msg2 = 'Please provide valid email address';
                     
-            var errorFlag = false;
+                        var errorFlag = false;
 
-            if (fullname.val() == "") {
-                errorFlag = true;                            
-                $(fullname).parent().addClass('has-error');
-                $(fullname).parent().find('.help-inline').text(msg1).show();
-            }
+                        if (fullname.val() == "") {
+                            errorFlag = true;                            
+                            $(fullname).parent().addClass('has-error');
+                            $(fullname).parent().find('.help-inline').text(msg1).show();
+                        }
 
-            if (email.val() == "") {
-                errorFlag = true;
-                $(email).parent().addClass('has-error');
-                $(email).parent().find('.help-inline').text(msg1).show();
-            }
-            else if (!isValidEmailAddress(email.val())) {
-                $(email).parent().addClass('has-error');
-                $(email).parent().find('.help-inline').text(msg2).show();
-            }
+                        if (email.val() == "") {
+                            errorFlag = true;
+                            $(email).parent().addClass('has-error');
+                            $(email).parent().find('.help-inline').text(msg1).show();
+                        }
+                        else if (!isValidEmailAddress(email.val())) {
+                            $(email).parent().addClass('has-error');
+                            $(email).parent().find('.help-inline').text(msg2).show();
+                        }
 
-            if (comment.val() == "") {
-                errorFlag = true;
-                $(comment).parent().addClass('has-error');
-                $(comment).parent().find('.help-inline').text(msg1).show();
-            }
+                        if (comment.val() == "") {
+                            errorFlag = true;
+                            $(comment).parent().addClass('has-error');
+                            $(comment).parent().find('.help-inline').text(msg1).show();
+                        }
 
-            if (errorFlag) {
-                $('.modal').animate({ scrollTop: 0 }, 'slow');
-            }
-            else {
-                    $('.emailSend').text('Sending Email');
-
-                    $.ajax({
-                        type: "POST",
-                        url: "/Home/SendEmail",
-                        data: { "fullname": fullname.val(), "email": email.val(), "comment": comment.val(), 'isSuggestion': isSuggestion },
-                        async: false,
-                        success: function (result) {
-                            if (result == "success") {
-                                //$('#message-form-alert').html('Email Sent Successfully !!!').show();
-                               
-                                alert('Email Sent Successfully !!!');
-                            }
-                        },
-                        error: function (errorThrown) {
+                        if (errorFlag) {
                             $('.modal').animate({ scrollTop: 0 }, 'slow');
                         }
-                    });
-            }
+                        else {
+                            $('.emailSend').text('Sending Email');
 
-            return !errorFlag;
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/SendEmail",
+                                data: { "fullname": fullname.val(), "email": email.val(), "comment": comment.val(), 'isSuggestion': isSuggestion },
+                                async: false,
+                                success: function (result) {
+                                    if (result == "success") {
+                                        //$('#message-form-alert').html('Email Sent Successfully !!!').show();
+                               
+                                        alert('Email Sent Successfully !!!');
+                                    }
+                                },
+                                error: function (errorThrown) {
+                                    $('.modal').animate({ scrollTop: 0 }, 'slow');
+                                }
+                            });
+                        }
+
+                        return !errorFlag;
+                    }
+                },
+                main: {
+                    label: "Close",
+                    className: "btn-primary emailClose",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    });
+
+    $('.openLink').on('click', function () {
+
+        var title = 'Privacy policy';
+        var source = "http://testmyself.today/privacy.html";
+
+        if ($(this).attr('id') == 'terms') {
+            title = 'Terms and conditions';
+            source = "http://testmyself.today/terms.html";
         }
-    },
-        main: {
-        label: "Close",
-        className: "btn-primary emailClose",
-        callback: function () {
-        }
-        }
-}
-});
-});
+
+        bootbox.dialog({
+            title: title,
+            message: '<div class="embed-responsive embed-responsive-16by9">' +
+                      '<iframe class="embed-responsive-item" src="'+ source +'"></iframe>'+
+                    '</div>',
+            buttons: {
+                main: {
+                    label: "Close",
+                    className: "btn-primary"
+                }
+            }
+        });
+    });
 });
