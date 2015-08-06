@@ -145,16 +145,23 @@
 </div>
 <br /><br />
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
+        @{
+            var count = 0;
+        }
+
+
         @foreach (var item in Model)
         {
+            count++;
+
             if (!String.IsNullOrEmpty(item.TextForSharing))
             {
                 testFriendlyUrl = item.TextForSharing.Replace(' ', '-');
                 testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
             }
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="question-panel">
                     <div class="question-item-background" style="background-image: url(@item.ImagePath);">
                         <div class="color-overlay">
@@ -170,22 +177,53 @@
                     </div>
                 </div>
             </div>
+
+            if (count == 2)
+            {
+                <div class="col-md-4">
+                    <div class="question-panel">
+                        <div>
+                            <ins class="adsbygoogle"
+                                 style="display:inline-block;width:300px;height:295px"
+                                 data-ad-client="ca-pub-8889029058898784"
+                                 data-ad-slot="6343755158"></ins>                          
+                        </div>
+                    </div>
+                </div>
+            }
         }
-        <div class="col-md-offset-4 col-md-4">
-            @Html.PagedListPager(Model, page => Url.Action("Index",
-                new { search = ViewBag.Search, page }))
-        </div>
+
+        @if (count == 1)
+        {
+            <div class="col-md-4">
+                <div class="question-panel">
+                    <div>
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:300px;height:295px"
+                             data-ad-client="ca-pub-8889029058898784"
+                             data-ad-slot="6343755158"></ins>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if(count >= 5)
+        {
+            <div class="col-md-offset-4 col-md-4">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                    new { search = ViewBag.Search, page }))
+            </div>
+        }
 
     </div>
-    <div class="col-md-3">
-        <!-- Test Myself Skyscraper -->
-        <div class="panel Leaderboard-ad">
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:300px;height:600px"
-                 data-ad-client="ca-pub-8889029058898784"
-                 data-ad-slot="8851773155"></ins>
-        </div>
-    </div>
+    @*<div class="col-md-3">
+            <div class="panel Leaderboard-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:600px"
+                     data-ad-client="ca-pub-8889029058898784"
+                     data-ad-slot="8851773155"></ins>
+            </div>
+        </div>*@
 </div>
 
 

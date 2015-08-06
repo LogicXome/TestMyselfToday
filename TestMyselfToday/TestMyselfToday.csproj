@@ -201,6 +201,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="images\facebook-share.png" />
     <Content Include="images\overlay-pattern2.png" />
     <Content Include="privacy.html" />
     <Content Include="Scripts\bootbox.js" />

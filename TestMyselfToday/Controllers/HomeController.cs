@@ -17,7 +17,7 @@ namespace TestMyselfToday.Controllers
         TMTEntities db = new TMTEntities();
 
         [ForUsers]
-        public ActionResult Index(string search, int page=1, int pageSize = 4)
+        public ActionResult Index(string search, int page=1, int pageSize = 5)
         {
             List<Test> lstTest = null;
 
@@ -210,7 +210,14 @@ namespace TestMyselfToday.Controllers
                 return HttpNotFound();
             }
 
-            var tests = db.Tests.Where(x => x.LanguageId == test.LanguageId && x.IsActive == true && x.Id != test.Id).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+            var tests = db.Tests.Where(x => x.SectionId == test.SectionId && x.IsActive == true && x.Id != test.Id).OrderByDescending(o => o.UsageCount).Take(3).ToList();            
+
+            if (tests.Count < 3)
+            {
+                var testsR = db.Tests.Where(x => x.LanguageId == test.LanguageId && x.IsActive == true && x.Id != test.Id).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+
+                tests.AddRange(testsR.Take(3 - tests.Count));
+            }
 
             ViewBag.OtherTests = tests;
 
@@ -317,7 +324,14 @@ namespace TestMyselfToday.Controllers
                 return RedirectToAction("Test", "Home", new { id = testResult.TestId });
             }
 
-            var tests = db.Tests.Where(x => x.LanguageId == testResult.Test.LanguageId && x.IsActive == true && x.Id != testResult.TestId).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+            var tests = db.Tests.Where(x => x.SectionId == testResult.Test.SectionId && x.IsActive == true && x.Id != testResult.Test.Id).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+
+            if (tests.Count < 3)
+            {
+                var testsR = db.Tests.Where(x => x.LanguageId == testResult.Test.LanguageId && x.IsActive == true && x.Id != testResult.Test.Id).OrderByDescending(o => o.UsageCount).Take(3).ToList();
+
+                tests.AddRange(testsR.Take(3 - tests.Count));
+            }
 
             ViewBag.OtherTests = tests;
 

@@ -4,7 +4,9 @@
     string testResultTitle = string.Empty;
     string testResultUrl = Convert.ToString(Request.Url);
 
-    testResultTitle = Model.TitleText + "  " + Model.ResultText;   
+    string fbUrl = "https://www.facebook.com/sharer/sharer.php?m2w&app_id=373670266176298&sdk=joey&u=" + testResultUrl + "&display=popup&ref=plugin&_rdr&src=share_button";
+
+    testResultTitle = Model.TitleText + "  " + Model.ResultText;
 
     ViewBag.Title = testResultTitle;
 }
@@ -74,7 +76,7 @@
         height: 240px;
         color: white;
         font-weight: bold;
-        font-size: xx-large;        
+        font-size: xx-large;
         text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
     }
 
@@ -85,7 +87,7 @@
     }
 
     .question-item-background {
-        background-size:cover;
+        background-size: cover;
     }
 
     .question-item-text {
@@ -127,7 +129,9 @@
         <div class="panel-success">
             <div class="panel-body fb-sharing-panel">
                 <div class="col-md-offset-4 col-md-1">
-                    <div class="fb-share-button" data-href="@testResultUrl" data-layout="button"></div>
+                    <a href="@fbUrl">
+                        <img class="fb-share" src="~/images/facebook-share.png" alt="Facebook">
+                    </a>
                 </div>
                 <div class="col-md-1">
                     <div class="g-plus" data-action="share" data-annotation="none" data-href="@testResultUrl"></div>
@@ -157,7 +161,9 @@
 
             <div class="panel-body fb-sharing-panel">
                 <div class="col-md-offset-4 col-md-1">
-                    <div class="fb-share-button" data-href="@testResultUrl" data-layout="button"></div>
+                    <a href="@fbUrl">
+                        <img class="fb-share" src="~/images/facebook-share.png" alt="Facebook">
+                    </a>
                 </div>
                 <div class="col-md-1">
                     <div class="g-plus" data-action="share" data-annotation="none" data-href="@testResultUrl"></div>
@@ -178,7 +184,7 @@
         {
             testFriendlyUrl = Model.Test.TextForSharing.Replace(' ', '-');
             testFriendlyUrl = testFriendlyUrl.Trim().ToLower();
-        }      
+        }
     }
     <div class="panel-body">
         <div class="col-md-offset-4 col-md-4">
@@ -208,7 +214,7 @@
             @if (ViewBag.OtherTests != null)
             {
                 var lstOtherTests = ViewBag.OtherTests;
-                
+
                 <div class="row">
                     @foreach (var item in lstOtherTests)
                     {
@@ -242,15 +248,37 @@
 </div>
 
 @section Scripts{
+    @*<script src="http://connect.facebook.net/en_US/all.js" type="text/javascript" charset="utf-8"></script>
     <div id="fb-root"></div>
-    <script>
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1381627395391335&version=v2.3";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+    <script type="text/javascript" charset="utf-8">
+        FB.init({
+            appId: '373670266176298',
+            status: true,
+            cookie: true,
+            xfbml: true
+        });
+
+        function share_prompt_fb() {
+            FB.ui(
+		       {
+		           method: 'feed',
+		           name: '@testResultTitle',
+		           link: '@testResultUrl',
+		           picture: '@Model.ImagePath',
+		           //caption: '@testResultTitle',
+		           description: '@Model.ResultDetail',
+		           message: 'TestMyself.today'
+		       },
+		       function (response) {
+		           if (response && response.post_id) {
+		               alert('Thanks for Sharing...');
+		           } else {
+		           }
+		       }
+		     );
+        }
+
+    </script>*@
     <!-- Place this tag after the last share tag. -->
     <script type="text/javascript">
         (function () {
@@ -263,4 +291,7 @@
         window.twttr = (function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {}; if (d.getElementById(id)) return t; js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); t._e = []; t.ready = function (f) { t._e.push(f); }; return t; }(document, "script", "twitter-wjs"));
     </script>
 
+    @*<script type="text/javascript">
+        $('.fb-share').on('click', share_prompt_fb);
+    </script>*@
 }
